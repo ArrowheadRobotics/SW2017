@@ -4,22 +4,16 @@ import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-
 public class RobotMap {
-    public static CANTalon chassisLeftDriveOne;
-    public static CANTalon chassisLeftDriveTwo;
-    public static CANTalon chassisRightDriveOne;
-    public static CANTalon chassisRightDriveTwo;
-    public static CANTalon chassisWinchOne;
-    public static CANTalon chassisWinchTwo;
-    public static DoubleSolenoid chassisShiftSol;
+    public static CANTalon chassisLeftDriveOne, chassisLeftDriveTwo;
+    public static CANTalon chassisRightDriveOne, chassisRightDriveTwo;
+    public static CANTalon chassisWinchOne, chassisWinchTwo;
     public static CANTalon shooterConveyorMotor;
     public static CANTalon shooterAgitatorMotor;
-    public static CANTalon shooterLeftShooter;
-    public static CANTalon shooterRightShooter;
+    public static CANTalon shooterLeftShooter, shooterRightShooter;
     public static CANTalon intakeIntakeMotor;
     public static DoubleSolenoid gearReleaseFlap;
+    public static Solenoid chassisShiftSol;
     public static Solenoid gearReceiveFlap;
 
     public static void init() {
@@ -29,7 +23,7 @@ public class RobotMap {
         chassisRightDriveTwo = new CANTalon(3);
         chassisWinchOne = new CANTalon(4);
         chassisWinchTwo = new CANTalon(5);
-        chassisShiftSol = new DoubleSolenoid(0, 0, 1);
+        chassisShiftSol = new Solenoid(0, 1);
         shooterConveyorMotor = new CANTalon(6);
         shooterAgitatorMotor = new CANTalon(7);
         shooterLeftShooter = new CANTalon(8);

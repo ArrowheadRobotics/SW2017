@@ -1,7 +1,6 @@
 package org.usfirst.frc706.SW2017.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc706.SW2017.Robot;
 
 public class AutonomousCommand extends Command {
 

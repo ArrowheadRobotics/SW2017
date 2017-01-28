@@ -3,9 +3,9 @@ package org.usfirst.frc706.SW2017;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class OI {
-    public Joystick leftJoy;
-    public Joystick rightJoy;
-    public Joystick xbox;
+    private Joystick leftJoy;
+    private Joystick rightJoy;
+    private Joystick xbox;
 
     public OI() {
         xbox = new Joystick(2);
