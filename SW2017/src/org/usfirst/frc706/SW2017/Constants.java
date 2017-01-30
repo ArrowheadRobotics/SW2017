@@ -25,6 +25,8 @@ public class Constants {
 	public class Intake {
 		//SRX CAN IDs
 		public static final int INTAKE = 10;
+		//Speeds
+		public static final double INTAKE_SPEED = 0.4;
 	}
 	
 	public class Gear {

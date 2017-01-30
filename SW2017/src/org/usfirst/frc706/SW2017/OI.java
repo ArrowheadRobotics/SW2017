@@ -1,5 +1,7 @@
 package org.usfirst.frc706.SW2017;
 
+import org.usfirst.frc706.SW2017.commands.runIntake;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -23,6 +25,8 @@ public class OI {
         
         rightTrigger = new JoystickButton(rightJoy, Constants.OI.TRIGGER);
         leftTrigger = new JoystickButton(leftJoy, Constants.OI.TRIGGER);
+        
+        a.whileHeld(new runIntake());
     }
 
     public Joystick getleftJoy() {
