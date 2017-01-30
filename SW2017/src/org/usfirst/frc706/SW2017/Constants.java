@@ -12,6 +12,9 @@ public class Constants {
 		//PCM Ports
 		public static final int SHIFTER_FORWARD = 0;
 		public static final int SHIFTER_REVERSE = 1;
+		
+		public static final double WINCH_CURRENT_MAX = 40;
+		public static final double CLIMB_SPEED = 0.5;
 	}
 	
 	public class Shooter {
@@ -20,6 +23,9 @@ public class Constants {
 		public static final int AGITATOR = 7;
 		public static final int SHOOTER_LEFT = 8;
 		public static final int SHOOTER_RIGHT = 9;
+		
+		public static final double AGITATOR_SPEED = 0.5;
+		public static final double CONVEYOR_SPEED = 0.5;
 	}
 	
 	public class Intake {

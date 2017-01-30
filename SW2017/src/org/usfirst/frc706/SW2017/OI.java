@@ -1,6 +1,10 @@
 package org.usfirst.frc706.SW2017;
 
-import org.usfirst.frc706.SW2017.commands.runIntake;
+import org.usfirst.frc706.SW2017.commands.Climb;
+import org.usfirst.frc706.SW2017.commands.RunIntake;
+import org.usfirst.frc706.SW2017.commands.ShootBalls;
+import org.usfirst.frc706.SW2017.commands.ToggleReceive;
+import org.usfirst.frc706.SW2017.commands.ToggleRelease;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -25,8 +29,12 @@ public class OI {
         
         rightTrigger = new JoystickButton(rightJoy, Constants.OI.TRIGGER);
         leftTrigger = new JoystickButton(leftJoy, Constants.OI.TRIGGER);
-        
-        a.whileHeld(new runIntake());
+
+        rightTrigger.whileHeld(new ShootBalls());
+        a.whileHeld(new RunIntake());
+        x.whenPressed(new ToggleRelease());
+        y.whenPressed(new ToggleReceive());
+        b.whenPressed(new Climb());
     }
 
     public Joystick getleftJoy() {
