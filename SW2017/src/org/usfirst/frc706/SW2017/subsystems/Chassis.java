@@ -1,9 +1,12 @@
 package org.usfirst.frc706.SW2017.subsystems;
 
 import org.usfirst.frc706.SW2017.RobotMap;
-import com.ctre.CANTalon;
-import edu.wpi.first.wpilibj.Solenoid;
+import org.usfirst.frc706.SW2017.commands.Drive;
 
+import com.ctre.CANTalon;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Chassis extends Subsystem {
@@ -13,9 +16,10 @@ public class Chassis extends Subsystem {
     private final CANTalon rightDriveTwo = RobotMap.chassisRightDriveTwo;
     private final CANTalon winchOne = RobotMap.chassisWinchOne;
     private final CANTalon winchTwo = RobotMap.chassisWinchTwo;
-    private final Solenoid shiftSol = RobotMap.chassisShiftSol;
-
+    private final DoubleSolenoid shiftSol = RobotMap.chassisShiftSol;
+    
     public void initDefaultCommand() {
+    	setDefaultCommand(new Drive());
     }
 }
 

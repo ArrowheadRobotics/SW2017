@@ -2,7 +2,6 @@ package org.usfirst.frc706.SW2017;
 
 import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Solenoid;
 
 public class RobotMap {
     public static CANTalon chassisLeftDriveOne, chassisLeftDriveTwo;
