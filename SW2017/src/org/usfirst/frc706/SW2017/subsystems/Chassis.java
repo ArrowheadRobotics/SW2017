@@ -20,5 +20,12 @@ public class Chassis extends Subsystem {
     public void initDefaultCommand() {
     	setDefaultCommand(new Drive());
     }
+    
+    public void move(double rightSpeed, double leftSpeed){
+    	leftDriveOne.set(leftSpeed);
+    	leftDriveTwo.set(leftSpeed);
+    	rightDriveOne.set(rightSpeed);
+    	rightDriveTwo.set(rightSpeed);
+    }
 }
 
