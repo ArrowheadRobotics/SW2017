@@ -1,5 +1,6 @@
 package org.usfirst.frc706.SW2017;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc706.SW2017.commands.*;
@@ -14,6 +15,7 @@ public class Robot extends IterativeRobot {
     public static Shooter shooter;
     public static Intake intake;
     public static Gear gear;
+    public static CameraServer frontCam, backCam;
 
     public void robotInit() {
     RobotMap.init();
@@ -23,6 +25,10 @@ public class Robot extends IterativeRobot {
         gear = new Gear();
         oi = new OI();
         autonomousCommand = new AutonomousCommand();
+        frontCam = CameraServer.getInstance();
+        backCam = CameraServer.getInstance();
+        frontCam.startAutomaticCapture();
+        backCam.startAutomaticCapture();
     }
 
     public void disabledInit(){}

@@ -2,6 +2,7 @@ package org.usfirst.frc706.SW2017;
 
 import org.usfirst.frc706.SW2017.commands.Climb;
 import org.usfirst.frc706.SW2017.commands.RunIntake;
+import org.usfirst.frc706.SW2017.commands.Shift;
 import org.usfirst.frc706.SW2017.commands.ShootBalls;
 import org.usfirst.frc706.SW2017.commands.ToggleReceive;
 import org.usfirst.frc706.SW2017.commands.ToggleRelease;
@@ -35,6 +36,7 @@ public class OI {
         x.whenPressed(new ToggleRelease());
         y.whenPressed(new ToggleReceive());
         b.whenPressed(new Climb());
+        start.whenPressed(new Shift());
     }
 
     public Joystick getleftJoy() {

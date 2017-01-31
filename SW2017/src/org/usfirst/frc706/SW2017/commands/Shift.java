@@ -5,25 +5,24 @@ import org.usfirst.frc706.SW2017.RobotMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ToggleReceive extends Command {
-	private DoubleSolenoid receiveSol;
+public class Shift extends Command {
+	private DoubleSolenoid shiftSol = RobotMap.chassisShiftSol;
 	
-    public ToggleReceive() {
+    public Shift() {
     }
 
     protected void initialize() {
-    	receiveSol = RobotMap.gearReceiveFlap;
     }
 
     protected void execute() {
-    	if (receiveSol.get() == DoubleSolenoid.Value.kForward) {
-    		receiveSol.set(DoubleSolenoid.Value.kReverse);
+    	if (shiftSol.get() == DoubleSolenoid.Value.kForward) {
+    		shiftSol.set(DoubleSolenoid.Value.kReverse);
     	}
-    	else if (receiveSol.get() == DoubleSolenoid.Value.kReverse){
-    		receiveSol.set(DoubleSolenoid.Value.kForward);
+    	else if (shiftSol.get() == DoubleSolenoid.Value.kReverse) {
+    		shiftSol.set(DoubleSolenoid.Value.kForward);
     	}
     	else {
-    		receiveSol.set(DoubleSolenoid.Value.kReverse);
+    		shiftSol.set(DoubleSolenoid.Value.kReverse);
     	}
     }
     

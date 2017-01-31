@@ -1,4 +1,5 @@
 package org.usfirst.frc706.SW2017.commands;
+
 import org.usfirst.frc706.SW2017.Constants;
 import org.usfirst.frc706.SW2017.RobotMap;
 
@@ -7,15 +8,19 @@ import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ShootBalls extends Command {
-	private CANTalon agitatorMotor = RobotMap.shooterAgitatorMotor;
-	private CANTalon conveyorMotor = RobotMap.shooterConveyorMotor;
-	private CANTalon leftShooterMotor = RobotMap.shooterLeftShooter;
-	private CANTalon rightShooterMotor = RobotMap.shooterRightShooter;
+	private CANTalon agitatorMotor;
+	private CANTalon conveyorMotor;
+	private CANTalon leftShooterMotor;
+	private CANTalon rightShooterMotor;
 	
     public ShootBalls() {
     }
 
     protected void initialize() {
+    	agitatorMotor = RobotMap.shooterAgitatorMotor;
+    	conveyorMotor = RobotMap.shooterConveyorMotor;
+    	leftShooterMotor = RobotMap.shooterLeftShooter;
+    	rightShooterMotor = RobotMap.shooterRightShooter;
     }
 
     protected void execute() {

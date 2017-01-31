@@ -7,13 +7,15 @@ import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Climb extends Command {
-	private CANTalon climbMotorOne = RobotMap.chassisWinchOne;
-	private CANTalon climbMotorTwo = RobotMap.chassisWinchTwo;
+	private CANTalon climbMotorOne;
+	private CANTalon climbMotorTwo;
 	
     public Climb() {
     }
 
     protected void initialize() {
+    	climbMotorOne = RobotMap.chassisWinchOne;
+    	climbMotorTwo = RobotMap.chassisWinchTwo;
     }
 
     protected void execute() {

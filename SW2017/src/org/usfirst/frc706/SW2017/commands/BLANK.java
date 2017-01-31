@@ -1,4 +1,5 @@
 package org.usfirst.frc706.SW2017.commands;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class BLANK extends Command {
