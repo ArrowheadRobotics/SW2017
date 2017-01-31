@@ -12,9 +12,11 @@ public class Constants {
 		//PCM Ports
 		public static final int SHIFTER_FORWARD = 0;
 		public static final int SHIFTER_REVERSE = 1;
-
+		//Speeds & Rates
 		public static final double WINCH_CURRENT_MAX = 40;
 		public static final double CLIMB_SPEED = 0.5;
+		
+		public static final double DRIVE_RAMP = 6;
 	}
 	
 	public class Shooter {
@@ -72,7 +74,7 @@ public class Constants {
 		public static final int ULTRA_BACK = 1;
 		public static final int AUTO_LEFT = 0;
 		public static final int AUTO_RIGHT = 1;
-		
+		//Speeds
 		public static final double DRIVE_SPEED = 0.7;
 	}
 }
