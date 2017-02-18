@@ -1,7 +1,7 @@
 package org.usfirst.frc706.SW2017;
 
 import com.ctre.CANTalon;
-import com.kauailabs.navx.frc.AHRS;
+//import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -21,7 +21,7 @@ public class RobotMap {
     public static DoubleSolenoid gearReceiveFlap;
     public static AnalogInput ultraFront, ultraBack;
     public static DigitalInput autoLeft, autoRight;
-    public static AHRS nav;
+    //public static AHRS nav;
 
     public static void init() {
         chassisLeftDriveOne = new CANTalon(Constants.Chassis.LEFT_ONE); 
@@ -42,6 +42,6 @@ public class RobotMap {
         ultraBack = new AnalogInput(Constants.Autonomous.ULTRA_BACK);
         autoLeft = new DigitalInput(Constants.Autonomous.AUTO_LEFT);
         autoRight = new DigitalInput(Constants.Autonomous.AUTO_RIGHT);
-        nav = new AHRS(SerialPort.Port.kMXP);
+        //nav = new AHRS(SerialPort.Port.kMXP);
     }
 }

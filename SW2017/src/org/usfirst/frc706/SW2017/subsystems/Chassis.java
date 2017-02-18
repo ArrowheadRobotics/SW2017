@@ -24,23 +24,18 @@ public class Chassis extends Subsystem {
     }
     
     public Chassis() {
-    	leftDriveOne.setVoltageRampRate(Constants.Chassis.DRIVE_RAMP);
+    	/*leftDriveOne.setVoltageRampRate(Constants.Chassis.DRIVE_RAMP);
     	leftDriveTwo.setVoltageRampRate(Constants.Chassis.DRIVE_RAMP);
     	rightDriveOne.setVoltageRampRate(Constants.Chassis.DRIVE_RAMP);
-    	rightDriveTwo.setVoltageRampRate(Constants.Chassis.DRIVE_RAMP);
-    	
-    	winchOne.reverseOutput(true);
-    	winchTwo.reverseOutput(true);
-    	rightDriveOne.reverseOutput(true);
-    	rightDriveTwo.reverseOutput(true);
+    	rightDriveTwo.setVoltageRampRate(Constants.Chassis.DRIVE_RAMP);*/
     	
     }
     
     public void move(double rightSpeed, double leftSpeed){
     	leftDriveOne.set(leftSpeed);
     	leftDriveTwo.set(leftSpeed);
-    	rightDriveOne.set(rightSpeed);
-    	rightDriveTwo.set(rightSpeed);
+    	rightDriveOne.set(rightSpeed*-1);
+    	rightDriveTwo.set(rightSpeed*-1);
     }
 }
 

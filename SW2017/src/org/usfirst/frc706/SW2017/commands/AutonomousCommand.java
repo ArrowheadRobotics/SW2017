@@ -4,7 +4,7 @@ import org.usfirst.frc706.SW2017.Constants;
 import org.usfirst.frc706.SW2017.RobotMap;
 
 import com.ctre.CANTalon;
-import com.kauailabs.navx.frc.AHRS;
+//import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -18,7 +18,7 @@ public class AutonomousCommand extends Command {
 	private DoubleSolenoid receiveSol, releaseSol;
 	private AnalogInput ultraFront, ultraBack;
 	private DigitalInput autoLeft, autoRight;
-	private AHRS nav;
+	//private AHRS nav;
 	private DriverStation.Alliance alliance;
 	private int state;
 
@@ -38,7 +38,7 @@ public class AutonomousCommand extends Command {
     	ultraBack = RobotMap.ultraBack;
     	autoLeft = RobotMap.autoLeft;
     	autoRight = RobotMap.autoRight;
-    	nav = RobotMap.nav;
+    	//nav = RobotMap.nav;
     	alliance = DriverStation.getInstance().getAlliance();
     }
 
@@ -80,8 +80,8 @@ public class AutonomousCommand extends Command {
     	return new boolean[]{autoLeft.get(), autoRight.get()};
     }
     
-    protected double getAngle() {
-    	return nav.getAngle();
+    protected void getAngle() {
+    	//return nav.getAngle();
     }
     
     protected void driveToDist(double dist) {

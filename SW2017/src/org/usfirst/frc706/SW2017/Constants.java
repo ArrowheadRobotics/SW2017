@@ -13,8 +13,8 @@ public class Constants {
 		public static final int SHIFTER_FORWARD = 0;
 		public static final int SHIFTER_REVERSE = 1;
 		//Speeds & Rates
-		public static final double WINCH_CURRENT_MAX = 40;
-		public static final double CLIMB_SPEED = 0.5;
+		public static final double WINCH_CURRENT_MAX = 10;
+		public static final double CLIMB_SPEED = -0.5;
 		
 		public static final double DRIVE_RAMP = 6;
 	}
@@ -26,15 +26,15 @@ public class Constants {
 		public static final int SHOOTER_LEFT = 10;
 		public static final int SHOOTER_RIGHT = 1;
 		//Speeds
-		public static final double AGITATOR_SPEED = 0.5;
-		public static final double CONVEYOR_SPEED = 0.5;
+		public static final double AGITATOR_SPEED = -1.0;
+		public static final double CONVEYOR_SPEED = -1.0;
 	}
 	
 	public class Intake {
 		//SRX CAN IDs
 		public static final int INTAKE = 8;
 		//Speeds
-		public static final double INTAKE_SPEED = 0.4;
+		public static final double INTAKE_SPEED = -1.0;
 	}
 	
 	public class Gear {

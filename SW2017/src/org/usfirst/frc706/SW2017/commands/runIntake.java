@@ -3,6 +3,7 @@ package org.usfirst.frc706.SW2017.commands;
 import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc706.SW2017.Constants;
+import org.usfirst.frc706.SW2017.Robot;
 import org.usfirst.frc706.SW2017.RobotMap;
 
 import com.ctre.CANTalon;
@@ -21,10 +22,11 @@ public class RunIntake extends Command {
     }
     
     protected boolean isFinished() {
-        return true;
+        return !(Robot.oi.a.get());
     }
 
     protected void end() {
+    	intakeMotor.set(0);
     }
 
     protected void interrupted() {

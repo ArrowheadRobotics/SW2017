@@ -31,12 +31,12 @@ public class OI {
         rightTrigger = new JoystickButton(rightJoy, Constants.OI.TRIGGER);
         leftTrigger = new JoystickButton(leftJoy, Constants.OI.TRIGGER);
 
-        rightTrigger.whileHeld(new ShootBalls());
-        a.whileHeld(new RunIntake());
-        x.whenPressed(new ToggleRelease());
+        rightTrigger.whenPressed(new ShootBalls());
+        a.whenPressed(new RunIntake());
+        start.whenPressed(new ToggleRelease());
         y.whenPressed(new ToggleReceive());
         b.whenPressed(new Climb());
-        start.whenPressed(new Shift());
+        x.whenPressed(new Shift());
     }
 
     public Joystick getleftJoy() {
