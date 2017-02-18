@@ -11,6 +11,11 @@ public class Shooter extends Subsystem {
     private final CANTalon leftShooter = RobotMap.shooterLeftShooter;
     private final CANTalon rightShooter = RobotMap.shooterRightShooter;
 
+    public Shooter() {
+    	conveyorMotor.reverseOutput(true);
+    	leftShooter.reverseOutput(true);
+    }
+    
     public void initDefaultCommand() {
     }
 }

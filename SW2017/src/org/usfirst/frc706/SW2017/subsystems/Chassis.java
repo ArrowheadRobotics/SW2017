@@ -28,6 +28,12 @@ public class Chassis extends Subsystem {
     	leftDriveTwo.setVoltageRampRate(Constants.Chassis.DRIVE_RAMP);
     	rightDriveOne.setVoltageRampRate(Constants.Chassis.DRIVE_RAMP);
     	rightDriveTwo.setVoltageRampRate(Constants.Chassis.DRIVE_RAMP);
+    	
+    	winchOne.reverseOutput(true);
+    	winchTwo.reverseOutput(true);
+    	rightDriveOne.reverseOutput(true);
+    	rightDriveTwo.reverseOutput(true);
+    	
     }
     
     public void move(double rightSpeed, double leftSpeed){

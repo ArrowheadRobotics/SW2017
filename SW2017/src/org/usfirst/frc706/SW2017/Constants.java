@@ -3,12 +3,12 @@ package org.usfirst.frc706.SW2017;
 public class Constants {
 	public class Chassis {
 		//SRX CAN IDs
-		public static final int LEFT_ONE = 0;
-		public static final int LEFT_TWO = 1;
+		public static final int LEFT_ONE = 4;
+		public static final int LEFT_TWO = 5;
 		public static final int RIGHT_ONE = 2;
-		public static final int RIGHT_TWO = 3;
-		public static final int WINCH_ONE = 4;
-		public static final int WINCH_TWO = 5;
+		public static final int RIGHT_TWO = 7;
+		public static final int WINCH_ONE = 3;
+		public static final int WINCH_TWO = 6;
 		//PCM Ports
 		public static final int SHIFTER_FORWARD = 0;
 		public static final int SHIFTER_REVERSE = 1;
@@ -21,10 +21,10 @@ public class Constants {
 	
 	public class Shooter {
 		//SRX CAN IDs
-		public static final int CONVEYOR = 6;
-		public static final int AGITATOR = 7;
-		public static final int SHOOTER_LEFT = 8;
-		public static final int SHOOTER_RIGHT = 9;
+		public static final int CONVEYOR = 0;
+		public static final int AGITATOR = 9;
+		public static final int SHOOTER_LEFT = 10;
+		public static final int SHOOTER_RIGHT = 1;
 		//Speeds
 		public static final double AGITATOR_SPEED = 0.5;
 		public static final double CONVEYOR_SPEED = 0.5;
@@ -32,7 +32,7 @@ public class Constants {
 	
 	public class Intake {
 		//SRX CAN IDs
-		public static final int INTAKE = 10;
+		public static final int INTAKE = 8;
 		//Speeds
 		public static final double INTAKE_SPEED = 0.4;
 	}
