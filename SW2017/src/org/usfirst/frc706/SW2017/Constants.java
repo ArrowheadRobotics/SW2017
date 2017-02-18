@@ -28,7 +28,7 @@ public class Constants {
 		//Speeds
 		public static final double AGITATOR_SPEED = -1.0;
 		public static final double CONVEYOR_SPEED = -1.0;
-		
+		public static final double CLOSE_SHOOT_SPEED = 0.5;
 		public static final double TARGET_LEFT = 4000;
 		//PID
 		public static final double SHOOTER_LEFT_P = 0.1;
@@ -76,11 +76,23 @@ public class Constants {
 	}
 	
 	public class Autonomous {
-		public static final int ULTRA_FRONT = 0;
-		public static final int ULTRA_BACK = 1;
+		public static final int STATE_SELECTOR_MSB = 0;
+		public static final int STATE_SELECTOR_LSB = 1;
+		public static final int SHOOT_COMMAND = 0xB00B;
+		public static final int VISION_COMMAND = 0x10AF;
+		public static final int POS_ONE_COMMANDS = 10;
+		public static final int POS_TWO_COMMANDS = 8;
+		public static final int POS_THREE_COMMANDS = 6;
+		public static final int ULTRA = 2;
 		public static final int AUTO_LEFT = 0;
 		public static final int AUTO_RIGHT = 1;
 		//Speeds
 		public static final double DRIVE_SPEED = 0.7;
+		public static final double SPEED_MULTIPLIER = 0.001;
+		// position values
+		public static final double POS_THREE_DIST_ONE = 10;
+		public static final double POS_THREE_ANG_ONE = 90;
+		public static final double POS_THREE_DIST_TWO = 3;
+		public static final double POS_THREE_ANG_TWO = 90;
 	}
 }
