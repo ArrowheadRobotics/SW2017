@@ -28,6 +28,12 @@ public class Constants {
 		//Speeds
 		public static final double AGITATOR_SPEED = -1.0;
 		public static final double CONVEYOR_SPEED = -1.0;
+		
+		public static final double TARGET_LEFT = 4000;
+		//PID
+		public static final double SHOOTER_LEFT_P = 0.1;
+		public static final double SHOOTER_LEFT_I = 0;
+		public static final double SHOOTER_LEFT_D = 0;
 	}
 	
 	public class Intake {
