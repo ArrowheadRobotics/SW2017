@@ -25,7 +25,7 @@ public class Climb extends Command {
     }
     
     protected boolean isFinished() {
-        return !(Robot.oi.b.get()) || (Math.max(climbMotorOne.getOutputCurrent(), climbMotorTwo.getOutputCurrent()) > Constants.Chassis.WINCH_CURRENT_MAX);
+        return !(Robot.oi.start.get()) || (Math.max(climbMotorOne.getOutputCurrent(), climbMotorTwo.getOutputCurrent()) > Constants.Chassis.WINCH_CURRENT_MAX);
     }
 
     protected void end() {

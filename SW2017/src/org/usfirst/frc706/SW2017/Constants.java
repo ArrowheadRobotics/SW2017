@@ -10,10 +10,10 @@ public class Constants {
 		public static final int WINCH_ONE = 3;
 		public static final int WINCH_TWO = 6;
 		//PCM Ports
-		public static final int SHIFTER_FORWARD = 0;
-		public static final int SHIFTER_REVERSE = 1;
+		public static final int SHIFTER_FORWARD = 4;
+		public static final int SHIFTER_REVERSE = 5;
 		//Speeds & Rates
-		public static final double WINCH_CURRENT_MAX = 30;
+		public static final double WINCH_CURRENT_MAX = 40;
 		public static final double CLIMB_SPEED = -1.0;
 		
 		public static final double DRIVE_RAMP = 6;
@@ -39,8 +39,8 @@ public class Constants {
 	
 	public class Gear {
 		//PCM Ports
-		public static final int RELEASE_FORWARD = 4;
-		public static final int RELEASE_REVERSE = 5;
+		public static final int RELEASE_FORWARD = 0;
+		public static final int RELEASE_REVERSE = 1;
 		public static final int RECEIVE_FORWARD = 2;
 		public static final int RECEIVE_REVERSE = 3;
 	}

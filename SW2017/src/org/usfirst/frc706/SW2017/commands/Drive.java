@@ -1,6 +1,7 @@
 package org.usfirst.frc706.SW2017.commands;
 
 import org.usfirst.frc706.SW2017.Robot;
+import org.usfirst.frc706.SW2017.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -15,6 +16,7 @@ public class Drive extends Command {
 
     protected void execute() {
     	Robot.chassis.move(Robot.oi.getRightJoy().getY(), Robot.oi.getLeftJoy().getY());
+    	System.out.println(RobotMap.shooterLeftShooter.getEncVelocity() + "\t" + RobotMap.shooterRightShooter.getEncVelocity());
     }
     
     protected boolean isFinished() {

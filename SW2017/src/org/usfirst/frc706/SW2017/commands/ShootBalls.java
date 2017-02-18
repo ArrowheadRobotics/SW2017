@@ -47,6 +47,6 @@ public class ShootBalls extends Command {
     }
     
     protected double calculateSpeed() {
-    	return 1.0;
+    	return 0.7;
     }
 }
