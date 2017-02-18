@@ -1,5 +1,6 @@
 package org.usfirst.frc706.SW2017.commands;
 import org.usfirst.frc706.SW2017.Constants;
+import org.usfirst.frc706.SW2017.Robot;
 import org.usfirst.frc706.SW2017.RobotMap;
 
 import com.ctre.CANTalon;
@@ -24,7 +25,7 @@ public class Climb extends Command {
     }
     
     protected boolean isFinished() {
-        return (Math.max(climbMotorOne.getOutputCurrent(), climbMotorTwo.getOutputCurrent()) > Constants.Chassis.WINCH_CURRENT_MAX);
+        return !(Robot.oi.b.get()) || (Math.max(climbMotorOne.getOutputCurrent(), climbMotorTwo.getOutputCurrent()) > Constants.Chassis.WINCH_CURRENT_MAX);
     }
 
     protected void end() {

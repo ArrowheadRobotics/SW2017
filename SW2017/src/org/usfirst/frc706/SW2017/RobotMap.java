@@ -6,7 +6,6 @@ import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.SerialPort;
 
 public class RobotMap {
     public static CANTalon chassisLeftDriveOne, chassisLeftDriveTwo;

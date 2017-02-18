@@ -1,6 +1,5 @@
 package org.usfirst.frc706.SW2017.subsystems;
 
-import org.usfirst.frc706.SW2017.Constants;
 import org.usfirst.frc706.SW2017.RobotMap;
 import org.usfirst.frc706.SW2017.commands.Drive;
 
@@ -8,7 +7,6 @@ import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import com.ctre.CANTalon.TalonControlMode;
 
 public class Chassis extends Subsystem {
     private final CANTalon leftDriveOne = RobotMap.chassisLeftDriveOne;
@@ -24,18 +22,16 @@ public class Chassis extends Subsystem {
     }
     
     public Chassis() {
-    	/*leftDriveOne.setVoltageRampRate(Constants.Chassis.DRIVE_RAMP);
-    	leftDriveTwo.setVoltageRampRate(Constants.Chassis.DRIVE_RAMP);
-    	rightDriveOne.setVoltageRampRate(Constants.Chassis.DRIVE_RAMP);
-    	rightDriveTwo.setVoltageRampRate(Constants.Chassis.DRIVE_RAMP);*/
     	
     }
     
     public void move(double rightSpeed, double leftSpeed){
-    	leftDriveOne.set(leftSpeed);
-    	leftDriveTwo.set(leftSpeed);
-    	rightDriveOne.set(rightSpeed*-1);
-    	rightDriveTwo.set(rightSpeed*-1);
+    	leftSpeed = Math.abs(leftSpeed) > 0.15 ? leftSpeed : 0;
+    	rightSpeed = Math.abs(rightSpeed) > 0.15 ? rightSpeed : 0;
+    	leftDriveOne.set(leftSpeed*-1);
+    	leftDriveTwo.set(leftSpeed*-1);
+    	rightDriveOne.set(rightSpeed);
+    	rightDriveTwo.set(rightSpeed);
     }
 }
 

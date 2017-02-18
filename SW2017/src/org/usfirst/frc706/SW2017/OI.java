@@ -1,6 +1,7 @@
 package org.usfirst.frc706.SW2017;
 
 import org.usfirst.frc706.SW2017.commands.Climb;
+import org.usfirst.frc706.SW2017.commands.ReverseConveyor;
 import org.usfirst.frc706.SW2017.commands.RunIntake;
 import org.usfirst.frc706.SW2017.commands.Shift;
 import org.usfirst.frc706.SW2017.commands.ShootBalls;
@@ -32,22 +33,23 @@ public class OI {
         leftTrigger = new JoystickButton(leftJoy, Constants.OI.TRIGGER);
 
         rightTrigger.whenPressed(new ShootBalls());
+        leftTrigger.whenPressed(new Shift());
         a.whenPressed(new RunIntake());
-        start.whenPressed(new ToggleRelease());
+        b.whenPressed(new ReverseConveyor());
+        x.whenPressed(new ToggleRelease());
         y.whenPressed(new ToggleReceive());
-        b.whenPressed(new Climb());
-        x.whenPressed(new Shift());
+        start.whenPressed(new Climb());
     }
 
-    public Joystick getleftJoy() {
+    public Joystick getLeftJoy() {
         return leftJoy;
     }
 
-    public Joystick getrightJoy() {
+    public Joystick getRightJoy() {
         return rightJoy;
     }
 
-    public Joystick getxbox() {
+    public Joystick getXbox() {
         return xbox;
     }
 }
