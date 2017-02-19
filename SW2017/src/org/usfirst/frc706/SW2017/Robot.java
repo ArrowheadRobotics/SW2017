@@ -19,18 +19,23 @@ public class Robot extends IterativeRobot {
     public static Gear gear;
     public static CameraServer frontCam, backCam;
 
+    public Robot() {
+        frontCam = CameraServer.getInstance();
+        backCam = CameraServer.getInstance();
+    }
+    
     public void robotInit() {
-    RobotMap.init();
+    	RobotMap.init();
         chassis = new Chassis();
         shooter = new Shooter();
         intake = new Intake();
         gear = new Gear();
         oi = new OI();
         autonomousCommand = new AutonomousCommand();
-        frontCam = CameraServer.getInstance();
-        backCam = CameraServer.getInstance();
-        frontCam.startAutomaticCapture();
-        backCam.startAutomaticCapture();
+        frontCam.startAutomaticCapture("Front Cam", Constants.Chassis.FRONT_CAM).setResolution(480, 320);
+        backCam.startAutomaticCapture("Back Cam", Constants.Chassis.BACK_CAM);
+        
+        
     }
 
     public void disabledInit(){}

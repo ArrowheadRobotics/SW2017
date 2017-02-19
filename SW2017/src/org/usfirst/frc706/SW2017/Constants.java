@@ -17,6 +17,8 @@ public class Constants {
 		public static final double CLIMB_SPEED = -1.0;
 		
 		public static final double DRIVE_RAMP = 6;
+		public static final int FRONT_CAM = 1;
+		public static final int BACK_CAM = 0;
 	}
 	
 	public class Shooter {
@@ -26,7 +28,7 @@ public class Constants {
 		public static final int SHOOTER_LEFT = 10;
 		public static final int SHOOTER_RIGHT = 1;
 		//Speeds
-		public static final double AGITATOR_SPEED = -1.0;
+		public static final double AGITATOR_SPEED = 1.0;
 		public static final double CONVEYOR_SPEED = -1.0;
 		public static final double CLOSE_SHOOT_SPEED = 0.5;
 		public static final double TARGET_LEFT = 4000;
@@ -76,8 +78,8 @@ public class Constants {
 	}
 	
 	public class Autonomous {
-		public static final int STATE_SELECTOR_MSB = 0;
-		public static final int STATE_SELECTOR_LSB = 1;
+		public static final int STATE_SELECTOR_MSB = 2;
+		public static final int STATE_SELECTOR_LSB = 3;
 		public static final int WAIT_COMMAND = 0x66;
 		public static final int DRIVE_COMMAND = 0x77;
 		public static final int ROTATE_COMMAND = 0x88;

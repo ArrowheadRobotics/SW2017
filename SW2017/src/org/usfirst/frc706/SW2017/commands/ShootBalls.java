@@ -23,20 +23,18 @@ public class ShootBalls extends Command {
     	conveyorMotor = RobotMap.shooterConveyorMotor;
     	leftShooterMotor = RobotMap.shooterLeftShooter;
     	rightShooterMotor = RobotMap.shooterRightShooter;
-    	
-    	leftShooterMotor.changeControlMode(TalonControlMode.Speed);
-    	leftShooterMotor.set(Constants.Shooter.TARGET_LEFT);
-    	
+//    	
+//    	leftShooterMotor.changeControlMode(TalonControlMode.Speed);
+//    	leftShooterMotor.set(Constants.Shooter.TARGET_LEFT);
+//    	
     }
 
     protected void execute() {
-    	/*
     	double speed = calculateSpeed();
     	agitatorMotor.set(Constants.Shooter.AGITATOR_SPEED);
     	conveyorMotor.set(Constants.Shooter.CONVEYOR_SPEED);
-    	leftShooterMotor.set(speed*-1);
-    	rightShooterMotor.set(speed);
-    	*/
+    	leftShooterMotor.set(speed);
+    	rightShooterMotor.set(speed*-1);
     }
     
     protected boolean isFinished() {
@@ -54,6 +52,6 @@ public class ShootBalls extends Command {
     }
     
     protected double calculateSpeed() {
-    	return 0.7;
+    	return 1.0;
     }
 }

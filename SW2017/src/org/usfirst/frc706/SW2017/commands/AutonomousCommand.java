@@ -66,6 +66,8 @@ public class AutonomousCommand extends Command {
     }
 
     protected void execute() {
+    	position = -1;
+    	System.out.println(DriverStation.getInstance().getAlliance() + "\t" + getPosition());
     	switch (position) {
     	case 0:
    			doCommand((int) posOneCommands[Math.max(state,  posOneCommands.length)][0],
@@ -111,7 +113,7 @@ public class AutonomousCommand extends Command {
     }
     
     protected double getAngle() {
-    	return nav.getAngle();
+    	return nav.getYaw();
     }
     
     protected void driveToDist(double dist) {

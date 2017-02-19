@@ -1,8 +1,10 @@
 package org.usfirst.frc706.SW2017.commands;
 
+import org.usfirst.frc706.SW2017.Robot;
 import org.usfirst.frc706.SW2017.RobotMap;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Shift extends Command {
@@ -15,22 +17,15 @@ public class Shift extends Command {
     }
 
     protected void execute() {
-    	if (shiftSol.get() == DoubleSolenoid.Value.kForward) {
-    		shiftSol.set(DoubleSolenoid.Value.kReverse);
-    	}
-    	else if (shiftSol.get() == DoubleSolenoid.Value.kReverse) {
-    		shiftSol.set(DoubleSolenoid.Value.kForward);
-    	}
-    	else {
-    		shiftSol.set(DoubleSolenoid.Value.kReverse);
-    	}
+    	shiftSol.set(Value.kReverse);
     }
     
     protected boolean isFinished() {
-        return true;
+        return !(Robot.oi.leftTrigger.get());
     }
 
     protected void end() {
+    	shiftSol.set(Value.kForward);
     }
 
     protected void interrupted() {

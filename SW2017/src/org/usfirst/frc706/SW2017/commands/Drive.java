@@ -16,7 +16,6 @@ public class Drive extends Command {
 
     protected void execute() {
     	Robot.chassis.move(Robot.oi.getRightJoy().getY(), Robot.oi.getLeftJoy().getY());
-    	System.out.println(RobotMap.shooterLeftShooter.getEncVelocity() + "\t" + RobotMap.shooterRightShooter.getEncVelocity());
     }
     
     protected boolean isFinished() {
