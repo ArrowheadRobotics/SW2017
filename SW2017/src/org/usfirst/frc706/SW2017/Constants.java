@@ -105,5 +105,11 @@ public class Constants {
 		public static final double MIN_ANG_ERR = 0;
 		public static final double MIN_DIST_ERR = 0;
 		public static final double NULL_VALUE = 0;
+		public static final double SIDE_PASS_LINE_VALUE = 100;
+		public static final double MID_PASS_LINE_VALUE_ONE = 60;
+		public static final double RIGHT_TURN_VALUE = 90;
+		public static final double MID_PASS_LINE_VALUE_TWO = 50;
+		public static final double LEFT_TURN_VALUE = -90;
+		public static final double MID_PASS_LINE_VALUE_THREE = 40;
 	}
 }

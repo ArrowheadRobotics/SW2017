@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class AutonomousCommand extends Command {
 	private CANTalon leftMotorOne, leftMotorTwo, rightMotorOne, rightMotorTwo;
 	private CANTalon conveyorMotor, agitatorMotor, leftShooterMotor, rightShooterMotor;
-	private DoubleSolenoid receiveSol, releaseSol;
+	private DoubleSolenoid releaseSol;
 	private AnalogInput ultra;
 	private DigitalInput autoLeft, autoRight;
 	private DigitalInput stateReadOne, stateReadTwo;
@@ -51,13 +51,17 @@ public class AutonomousCommand extends Command {
     	position = getPosition();
     	mult = (alliance == DriverStation.Alliance.Red) ? 1 : -1;
     	posOneCommands = new double[][]{
-    		{Constants.Autonomous.DANCE_COMMAND, Constants.Autonomous.NULL_VALUE}
+    		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.SIDE_PASS_LINE_VALUE}
     		};
     	posTwoCommands = new double[][]{
-    		{Constants.Autonomous.DANCE_COMMAND, Constants.Autonomous.NULL_VALUE}
+    		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.MID_PASS_LINE_VALUE_ONE},
+    		{Constants.Autonomous.ROTATE_COMMAND, Constants.Autonomous.RIGHT_TURN_VALUE * mult},
+    		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.MID_PASS_LINE_VALUE_TWO},
+    		{Constants.Autonomous.ROTATE_COMMAND, Constants.Autonomous.LEFT_TURN_VALUE * mult},
+    		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.MID_PASS_LINE_VALUE_THREE}
     	};
     	posThreeCommands = new double[][]{
-    		{Constants.Autonomous.DANCE_COMMAND, Constants.Autonomous.NULL_VALUE}
+    		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.SIDE_PASS_LINE_VALUE}
     	};
     }
 
@@ -69,11 +73,14 @@ public class AutonomousCommand extends Command {
     		break;
     	case 1:
     		doCommand((int) posOneCommands[Math.max(state,  posOneCommands.length)][0],
-  				  posOneCommands[Math.max(state,  posOneCommands.length)][1]);
+  				  posTwoCommands[Math.max(state,  posOneCommands.length)][1]);
    			break;
    		case 2:
    			doCommand((int) posOneCommands[Math.max(state,  posOneCommands.length)][0],
-  				  posOneCommands[Math.max(state,  posOneCommands.length)][1]);
+  				  posThreeCommands[Math.max(state,  posOneCommands.length)][1]);
+   			break;
+   		case 3:
+   			doCommand(Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE);
    			break;
    		}
     }
@@ -200,7 +207,7 @@ public class AutonomousCommand extends Command {
     	switch (command) {
     	case Constants.Autonomous.WAIT_COMMAND:
     		try {
-    			Thread.sleep((long) value);
+    			Thread.sleep((long) Math.min((long) value, (long) DriverStation.getInstance().getMatchTime()));
     		}
     		catch (Exception e) {}
     		break;
