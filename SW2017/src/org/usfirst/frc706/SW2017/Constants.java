@@ -78,8 +78,16 @@ public class Constants {
 	public class Autonomous {
 		public static final int STATE_SELECTOR_MSB = 0;
 		public static final int STATE_SELECTOR_LSB = 1;
-		public static final int SHOOT_COMMAND = 0xB00B;
-		public static final int VISION_COMMAND = 0x10AF;
+		public static final int WAIT_COMMAND = 0x66;
+		public static final int DRIVE_COMMAND = 0x77;
+		public static final int ROTATE_COMMAND = 0x88;
+		public static final int VISION_COMMAND = 0x99;
+		public static final int OPEN_COMMAND = 0xaa;
+		public static final int CLOSE_COMMAND = 0xbb;
+		public static final int SHOOT_COMMAND = 0xcc;
+		public static final int STOP_COMMAND = 0xdd;
+		public static final int ESTOP_COMMAND = 0xee;
+		public static final int DANCE_COMMAND = 0xff;
 		public static final int POS_ONE_COMMANDS = 10;
 		public static final int POS_TWO_COMMANDS = 8;
 		public static final int POS_THREE_COMMANDS = 6;
@@ -90,9 +98,12 @@ public class Constants {
 		public static final double DRIVE_SPEED = 0.7;
 		public static final double SPEED_MULTIPLIER = 0.001;
 		// position values
-		public static final double POS_THREE_DIST_ONE = 10;
-		public static final double POS_THREE_ANG_ONE = 90;
-		public static final double POS_THREE_DIST_TWO = 3;
-		public static final double POS_THREE_ANG_TWO = 90;
+		public static final double POS_ONE_DIST_ONE = 0;
+		public static final double POS_TWO_DIST_ONE = 0;
+		public static final double POS_THREE_DIST_ONE = 0;
+		public static final double VISION_MIN_DIST = 0;
+		public static final double MIN_ANG_ERR = 0;
+		public static final double MIN_DIST_ERR = 0;
+		public static final double NULL_VALUE = 0;
 	}
 }

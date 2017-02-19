@@ -26,13 +26,10 @@ public class AutonomousCommand extends Command {
 	private int state;
 	private int mult;
 	private int position;
-	private double[] posOne, posTwo, posThree;
+	private double[][] posOneCommands, posTwoCommands, posThreeCommands;
 
     public AutonomousCommand() {
     	state = 0;
-    	posOne = new double[]{};
-    	posTwo = new double[]{};
-    	posThree = new double[]{};
     }
 
     protected void initialize() {
@@ -53,17 +50,32 @@ public class AutonomousCommand extends Command {
     	alliance = DriverStation.getInstance().getAlliance();
     	position = getPosition();
     	mult = (alliance == DriverStation.Alliance.Red) ? 1 : -1;
+    	posOneCommands = new double[][]{
+    		{Constants.Autonomous.DANCE_COMMAND, Constants.Autonomous.NULL_VALUE}
+    		};
+    	posTwoCommands = new double[][]{
+    		{Constants.Autonomous.DANCE_COMMAND, Constants.Autonomous.NULL_VALUE}
+    	};
+    	posThreeCommands = new double[][]{
+    		{Constants.Autonomous.DANCE_COMMAND, Constants.Autonomous.NULL_VALUE}
+    	};
     }
 
     protected void execute() {
     	switch (position) {
     	case 0:
+   			doCommand((int) posOneCommands[Math.max(state,  posOneCommands.length)][0],
+   					  posOneCommands[Math.max(state,  posOneCommands.length)][1]);
     		break;
     	case 1:
-    		break;
-    	case 2:
-    		break;
-    	}
+    		doCommand((int) posOneCommands[Math.max(state,  posOneCommands.length)][0],
+  				  posOneCommands[Math.max(state,  posOneCommands.length)][1]);
+   			break;
+   		case 2:
+   			doCommand((int) posOneCommands[Math.max(state,  posOneCommands.length)][0],
+  				  posOneCommands[Math.max(state,  posOneCommands.length)][1]);
+   			break;
+   		}
     }
 
     protected boolean isFinished() {
@@ -98,35 +110,52 @@ public class AutonomousCommand extends Command {
     protected void driveToDist(double dist) {
     	double err = dist - getDistance();
     	double spd = Constants.Autonomous.SPEED_MULTIPLIER * err;
-    	leftMotorOne.set(spd);
-    	leftMotorTwo.set(spd);
-    	rightMotorOne.set(spd*-1);
-    	rightMotorTwo.set(spd*-1);
+    	if (err < Constants.Autonomous.MIN_DIST_ERR) {
+    		incState();
+    	}
+    	else {
+        	leftMotorOne.set(spd);
+        	leftMotorTwo.set(spd);
+        	rightMotorOne.set(spd*-1);
+        	rightMotorTwo.set(spd*-1);	
+    	}
     }
     
     protected void rotateTo(double deg) {
     	double err = deg - getAngle();
     	double spd = Constants.Autonomous.SPEED_MULTIPLIER * err;
-    	leftMotorOne.set(spd);
-    	leftMotorTwo.set(spd);
-    	rightMotorOne.set(spd);
-    	rightMotorTwo.set(spd);
+    	if (err < Constants.Autonomous.MIN_ANG_ERR) {
+    		incState();
+    	}
+    	else {
+        	leftMotorOne.set(spd);
+        	leftMotorTwo.set(spd);
+        	rightMotorOne.set(spd);
+        	rightMotorTwo.set(spd);	
+    	}
     	
     }
     
     protected void driveWithVision() {
-    	leftMotorOne.set(getInputs()[0] ? Constants.Autonomous.DRIVE_SPEED : 0);
-    	leftMotorTwo.set(getInputs()[0] ? Constants.Autonomous.DRIVE_SPEED : 0);
-    	rightMotorOne.set(getInputs()[1] ? Constants.Autonomous.DRIVE_SPEED*-1 : 0);
-    	rightMotorTwo.set(getInputs()[1] ? Constants.Autonomous.DRIVE_SPEED*-1 : 0);
+    	if (getDistance() > Constants.Autonomous.VISION_MIN_DIST) {
+    		leftMotorOne.set(getInputs()[0] ? Constants.Autonomous.DRIVE_SPEED : 0);
+    		leftMotorTwo.set(getInputs()[0] ? Constants.Autonomous.DRIVE_SPEED : 0);
+    		rightMotorOne.set(getInputs()[1] ? Constants.Autonomous.DRIVE_SPEED*-1 : 0);
+    		rightMotorTwo.set(getInputs()[1] ? Constants.Autonomous.DRIVE_SPEED*-1 : 0);
+    	}
+    	else {
+    		incState();
+    	}
     }
     
     protected void openRelease() {
     	releaseSol.set(Value.kReverse);
+    	incState();
     }
     
     protected void closeRelease() {
     	releaseSol.set(Value.kForward);
+    	incState();
     }
     
     protected void startShooter() {
@@ -134,6 +163,7 @@ public class AutonomousCommand extends Command {
     	rightShooterMotor.set(Constants.Shooter.CLOSE_SHOOT_SPEED);
     	conveyorMotor.set(Constants.Shooter.CONVEYOR_SPEED);
     	agitatorMotor.set(Constants.Shooter.AGITATOR_SPEED);
+    	incState();
     }
     
     protected void stopShooter() {
@@ -141,6 +171,7 @@ public class AutonomousCommand extends Command {
     	rightShooterMotor.set(0);
     	conveyorMotor.set(0);
     	agitatorMotor.set(0);
+    	incState();
     }
     
     protected void stop() {
@@ -153,7 +184,6 @@ public class AutonomousCommand extends Command {
     	rightShooterMotor.set(0);
     	conveyorMotor.set(0);
     	agitatorMotor.set(0);
-    	
     }
     
     protected void dance() {
@@ -164,5 +194,47 @@ public class AutonomousCommand extends Command {
     	leftMotorTwo.set(spd);
     	rightMotorOne.set(spd*-1);
     	rightMotorTwo.set(spd*-1);
+    }
+    
+    protected void doCommand(int command, double value) {
+    	switch (command) {
+    	case Constants.Autonomous.WAIT_COMMAND:
+    		try {
+    			Thread.sleep((long) value);
+    		}
+    		catch (Exception e) {}
+    		break;
+    	case Constants.Autonomous.DRIVE_COMMAND:
+    		driveToDist(value);
+    		break;
+    	case Constants.Autonomous.ROTATE_COMMAND:
+    		rotateTo(value);
+    		break;
+    	case Constants.Autonomous.VISION_COMMAND:
+    		driveWithVision();
+    		break;
+    	case Constants.Autonomous.OPEN_COMMAND:
+    		openRelease();
+    		break;
+    	case Constants.Autonomous.CLOSE_COMMAND:
+    		closeRelease();
+    		break;
+    	case Constants.Autonomous.SHOOT_COMMAND:
+    		startShooter();
+    		break;
+    	case Constants.Autonomous.STOP_COMMAND:
+    		stopShooter();
+    		break;
+    	case Constants.Autonomous.ESTOP_COMMAND:
+    		stop();
+    		break;
+    	case Constants.Autonomous.DANCE_COMMAND:
+    		dance();
+    		break;
+    	}
+    }
+    
+    protected void incState() {
+    	state++;
     }
 }
