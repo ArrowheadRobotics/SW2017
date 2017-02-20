@@ -51,18 +51,11 @@ public class AutonomousCommand extends Command {
     	position = getPosition();
     	mult = (alliance == DriverStation.Alliance.Red) ? 1 : -1;
     	posOneCommands = new double[][]{
-    		{}
+    		{Constants.Autonomous.DRIVE_COMMAND, 0.5},
+    		{Constants.Autonomous.WAIT_COMMAND, 1000},
+    		{Constants.Autonomous.ESTOP_COMMAND, 0}
     	};
     	posTwoCommands = new double[][]{
-    		{Constants.Autonomous.DRIVE_COMMAND, 0.7},
-    		{Constants.Autonomous.WAIT_COMMAND, 1200},
-    		{Constants.Autonomous.ESTOP_COMMAND, 0},
-    		{Constants.Autonomous.DRIVE_COMMAND, -1},
-    		{Constants.Autonomous.WAIT_COMMAND, 1200},
-    		{Constants.Autonomous.OPEN_COMMAND, 0},
-    		{Constants.Autonomous.DRIVE_COMMAND, -0.7},
-    		{Constants.Autonomous.WAIT_COMMAND, 5000},
-    		{Constants.Autonomous.ESTOP_COMMAND, 0},
     	};
     	posThreeCommands = new double[][]{
     		{}
@@ -70,19 +63,19 @@ public class AutonomousCommand extends Command {
     }
 
     protected void execute() {
-    	position = 3;
+    	position = 0;
     	switch (position) {
     	case 0:
    			doCommand((int) posOneCommands[Math.min(state,  posOneCommands.length-1)][0],
-   					  posOneCommands[Math.min(state,  posOneCommands.length-1)][1]);
+					  posOneCommands[Math.min(state,  posOneCommands.length-1)][1]);
     		break;
     	case 1:
     		doCommand((int) posTwoCommands[Math.min(state,  posTwoCommands.length-1)][0],
-  				  posTwoCommands[Math.min(state,  posTwoCommands.length-1)][1]);
+				  posTwoCommands[Math.min(state,  posTwoCommands.length-1)][1]);
    			break;
    		case 2:
    			doCommand((int) posThreeCommands[Math.min(state,  posThreeCommands.length-1)][0],
-  				  posThreeCommands[Math.min(state,  posThreeCommands.length-1)][1]);
+				  posThreeCommands[Math.min(state,  posThreeCommands.length-1)][1]);
    			break;
    		case 3:
    			doCommand(Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE);
@@ -215,13 +208,18 @@ public class AutonomousCommand extends Command {
     	rightMotorTwo.set(spd*-1);
     }
     
+    protected void delay(long time) {
+    	try {
+    		Thread.sleep(time);
+    	}
+    	catch (InterruptedException e) {}
+    	incState();
+    }
+    
     protected void doCommand(int command, double value) {
     	switch (command) {
     	case Constants.Autonomous.WAIT_COMMAND:
-    		try {
-    			Thread.sleep((long) Math.min((long) value, (long) DriverStation.getInstance().getMatchTime()));
-    		}
-    		catch (Exception e) {}
+    		delay((long) value);
     		break;
     	case Constants.Autonomous.DRIVE_COMMAND:
     		drive(value);

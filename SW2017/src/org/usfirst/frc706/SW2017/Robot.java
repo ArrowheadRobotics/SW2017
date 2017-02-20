@@ -1,5 +1,6 @@
 package org.usfirst.frc706.SW2017;
 
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -17,10 +18,10 @@ public class Robot extends IterativeRobot {
     public static Shooter shooter;
     public static Intake intake;
     public static Gear gear;
-    public static CameraServer frontCam;
+    public static UsbCamera frontCam;
 
     public Robot() {
-        frontCam = CameraServer.getInstance();
+        frontCam = CameraServer.getInstance().startAutomaticCapture("Front Cam", Constants.Chassis.FRONT_CAM);
     }
     
     public void robotInit() {
@@ -31,7 +32,8 @@ public class Robot extends IterativeRobot {
         gear = new Gear();
         oi = new OI();
         autonomousCommand = new AutonomousCommand();
-        frontCam.startAutomaticCapture("Front Cam", Constants.Chassis.FRONT_CAM);        
+        frontCam.setResolution(Constants.Chassis.IMAGE_WIDTH, Constants.Chassis.IMAGE_HEIGHT);
+        frontCam.setFPS(Constants.Chassis.IMAGE_FPS);
     }
 
     public void disabledInit(){}

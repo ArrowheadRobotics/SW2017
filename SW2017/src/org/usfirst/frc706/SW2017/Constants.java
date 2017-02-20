@@ -9,6 +9,9 @@ public class Constants {
 		public static final int RIGHT_TWO = 7;
 		public static final int WINCH_ONE = 3;
 		public static final int WINCH_TWO = 6;
+		public static final int IMAGE_WIDTH = 320;
+		public static final int IMAGE_HEIGHT = 240;
+		public static final int IMAGE_FPS = 15;
 		//PCM Ports
 		public static final int SHIFTER_FORWARD = 4;
 		public static final int SHIFTER_REVERSE = 5;

@@ -30,7 +30,8 @@ public class ShootBalls extends Command {
     }
 
     protected void execute() {
-    	double speed = calculateSpeed();
+    	double speed = getSpeed();
+    	System.out.println(speed);
     	agitatorMotor.set(Constants.Shooter.AGITATOR_SPEED);
     	conveyorMotor.set(Constants.Shooter.CONVEYOR_SPEED);
     	leftShooterMotor.set(speed);
@@ -53,5 +54,11 @@ public class ShootBalls extends Command {
     
     protected double calculateSpeed() {
     	return 1.0;
+    }
+    
+    protected double getSpeed() {
+    	double spd = Robot.oi.getLeftJoy().getY();
+    	spd = (1 + spd) * 0.5;
+    	return spd;
     }
 }
