@@ -51,35 +51,38 @@ public class AutonomousCommand extends Command {
     	position = getPosition();
     	mult = (alliance == DriverStation.Alliance.Red) ? 1 : -1;
     	posOneCommands = new double[][]{
-    		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.SIDE_PASS_LINE_VALUE}
-    		};
+    		{}
+    	};
     	posTwoCommands = new double[][]{
-    		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.MID_PASS_LINE_VALUE_ONE},
-    		{Constants.Autonomous.ROTATE_COMMAND, Constants.Autonomous.RIGHT_TURN_VALUE * mult},
-    		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.MID_PASS_LINE_VALUE_TWO},
-    		{Constants.Autonomous.ROTATE_COMMAND, Constants.Autonomous.LEFT_TURN_VALUE * mult},
-    		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.MID_PASS_LINE_VALUE_THREE}
+    		{Constants.Autonomous.DRIVE_COMMAND, 0.7},
+    		{Constants.Autonomous.WAIT_COMMAND, 1200},
+    		{Constants.Autonomous.ESTOP_COMMAND, 0},
+    		{Constants.Autonomous.DRIVE_COMMAND, -1},
+    		{Constants.Autonomous.WAIT_COMMAND, 1200},
+    		{Constants.Autonomous.OPEN_COMMAND, 0},
+    		{Constants.Autonomous.DRIVE_COMMAND, -0.7},
+    		{Constants.Autonomous.WAIT_COMMAND, 5000},
+    		{Constants.Autonomous.ESTOP_COMMAND, 0},
     	};
     	posThreeCommands = new double[][]{
-    		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.SIDE_PASS_LINE_VALUE}
+    		{}
     	};
     }
 
     protected void execute() {
-    	position = -1;
-    	System.out.println(DriverStation.getInstance().getAlliance() + "\t" + getPosition());
+    	position = 3;
     	switch (position) {
     	case 0:
-   			doCommand((int) posOneCommands[Math.max(state,  posOneCommands.length)][0],
-   					  posOneCommands[Math.max(state,  posOneCommands.length)][1]);
+   			doCommand((int) posOneCommands[Math.min(state,  posOneCommands.length-1)][0],
+   					  posOneCommands[Math.min(state,  posOneCommands.length-1)][1]);
     		break;
     	case 1:
-    		doCommand((int) posOneCommands[Math.max(state,  posOneCommands.length)][0],
-  				  posTwoCommands[Math.max(state,  posOneCommands.length)][1]);
+    		doCommand((int) posTwoCommands[Math.min(state,  posTwoCommands.length-1)][0],
+  				  posTwoCommands[Math.min(state,  posTwoCommands.length-1)][1]);
    			break;
    		case 2:
-   			doCommand((int) posOneCommands[Math.max(state,  posOneCommands.length)][0],
-  				  posThreeCommands[Math.max(state,  posOneCommands.length)][1]);
+   			doCommand((int) posThreeCommands[Math.min(state,  posThreeCommands.length-1)][0],
+  				  posThreeCommands[Math.min(state,  posThreeCommands.length-1)][1]);
    			break;
    		case 3:
    			doCommand(Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE);
@@ -92,7 +95,6 @@ public class AutonomousCommand extends Command {
     }
 
     protected void end() {
-    	stop();
     }
 
     protected void interrupted() {
@@ -114,6 +116,14 @@ public class AutonomousCommand extends Command {
     
     protected double getAngle() {
     	return nav.getYaw();
+    }
+    
+    protected void drive(double value) {
+    	leftMotorOne.set(value);
+    	leftMotorTwo.set(value);
+    	rightMotorOne.set(value*-1);
+    	rightMotorTwo.set(value*-1);
+    	incState();
     }
     
     protected void driveToDist(double dist) {
@@ -214,6 +224,9 @@ public class AutonomousCommand extends Command {
     		catch (Exception e) {}
     		break;
     	case Constants.Autonomous.DRIVE_COMMAND:
+    		drive(value);
+    		break;
+    	case Constants.Autonomous.DRIVE_DIST_COMMAND:
     		driveToDist(value);
     		break;
     	case Constants.Autonomous.ROTATE_COMMAND:

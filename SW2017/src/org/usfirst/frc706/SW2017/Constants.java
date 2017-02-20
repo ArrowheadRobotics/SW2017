@@ -17,8 +17,7 @@ public class Constants {
 		public static final double CLIMB_SPEED = -1.0;
 		
 		public static final double DRIVE_RAMP = 6;
-		public static final int FRONT_CAM = 1;
-		public static final int BACK_CAM = 0;
+		public static final int FRONT_CAM = 0;
 	}
 	
 	public class Shooter {
@@ -80,6 +79,7 @@ public class Constants {
 	public class Autonomous {
 		public static final int STATE_SELECTOR_MSB = 2;
 		public static final int STATE_SELECTOR_LSB = 3;
+		public static final int DRIVE_DIST_COMMAND = 0x55;
 		public static final int WAIT_COMMAND = 0x66;
 		public static final int DRIVE_COMMAND = 0x77;
 		public static final int ROTATE_COMMAND = 0x88;
@@ -103,7 +103,7 @@ public class Constants {
 		public static final double POS_ONE_DIST_ONE = 0;
 		public static final double POS_TWO_DIST_ONE = 0;
 		public static final double POS_THREE_DIST_ONE = 0;
-		public static final double VISION_MIN_DIST = 0;
+		public static final double VISION_MIN_DIST = 20;
 		public static final double MIN_ANG_ERR = 0;
 		public static final double MIN_DIST_ERR = 0;
 		public static final double NULL_VALUE = 0;

@@ -17,11 +17,10 @@ public class Robot extends IterativeRobot {
     public static Shooter shooter;
     public static Intake intake;
     public static Gear gear;
-    public static CameraServer frontCam, backCam;
+    public static CameraServer frontCam;
 
     public Robot() {
         frontCam = CameraServer.getInstance();
-        backCam = CameraServer.getInstance();
     }
     
     public void robotInit() {
@@ -32,10 +31,7 @@ public class Robot extends IterativeRobot {
         gear = new Gear();
         oi = new OI();
         autonomousCommand = new AutonomousCommand();
-        frontCam.startAutomaticCapture("Front Cam", Constants.Chassis.FRONT_CAM).setResolution(480, 320);
-        backCam.startAutomaticCapture("Back Cam", Constants.Chassis.BACK_CAM);
-        
-        
+        frontCam.startAutomaticCapture("Front Cam", Constants.Chassis.FRONT_CAM);        
     }
 
     public void disabledInit(){}
@@ -46,7 +42,9 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
-    public void autonomousPeriodic() {}
+    public void autonomousPeriodic() {
+    	Scheduler.getInstance().run();
+    }
 
     public void teleopInit() {
         if (autonomousCommand != null) autonomousCommand.cancel();
