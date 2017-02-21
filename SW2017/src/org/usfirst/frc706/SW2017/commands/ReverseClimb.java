@@ -1,5 +1,4 @@
 package org.usfirst.frc706.SW2017.commands;
-
 import org.usfirst.frc706.SW2017.Constants;
 import org.usfirst.frc706.SW2017.Robot;
 import org.usfirst.frc706.SW2017.RobotMap;
@@ -8,26 +7,30 @@ import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ReverseConveyor extends Command {
-	private CANTalon conveyorMotor;
+public class ReverseClimb extends Command {
+	private CANTalon climbMotorOne;
+	private CANTalon climbMotorTwo;
 	
-    public ReverseConveyor() {
-    	conveyorMotor = RobotMap.shooterConveyorMotor;
+    public ReverseClimb() {
     }
 
     protected void initialize() {
+    	climbMotorOne = RobotMap.chassisWinchOne;
+    	climbMotorTwo = RobotMap.chassisWinchTwo;
     }
 
     protected void execute() {
-    	conveyorMotor.set(Constants.Shooter.CONVEYOR_SPEED*-1);
+    	climbMotorOne.set(Constants.Chassis.CLIMB_SPEED*-1);
+    	climbMotorTwo.set(Constants.Chassis.CLIMB_SPEED*-1);
     }
     
     protected boolean isFinished() {
-        return !(Robot.oi.buttTwo.get());
+        return !(Robot.oi.back.get());
     }
 
     protected void end() {
-    	conveyorMotor.set(0);
+    	climbMotorOne.set(0);
+    	climbMotorTwo.set(0);
     }
 
     protected void interrupted() {

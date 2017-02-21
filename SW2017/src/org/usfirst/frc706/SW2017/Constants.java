@@ -21,6 +21,7 @@ public class Constants {
 		
 		public static final double DRIVE_RAMP = 6;
 		public static final int FRONT_CAM = 0;
+		public static final int BACK_CAM = 1;
 	}
 	
 	public class Shooter {
@@ -33,11 +34,13 @@ public class Constants {
 		public static final double AGITATOR_SPEED = 1.0;
 		public static final double CONVEYOR_SPEED = -1.0;
 		public static final double CLOSE_SHOOT_SPEED = 0.5;
-		public static final double TARGET_LEFT = 4000;
 		//PID
-		public static final double SHOOTER_LEFT_P = 0.1;
-		public static final double SHOOTER_LEFT_I = 0;
-		public static final double SHOOTER_LEFT_D = 0;
+		public static final double SHOOTER_LEFT_P = 0.01;
+		public static final double SHOOTER_LEFT_I = 0.01;
+		public static final double SHOOTER_LEFT_D = 0.01;
+		public static final double SHOOTER_RIGHT_P = 0.01;
+		public static final double SHOOTER_RIGHT_I = 0.01;
+		public static final double SHOOTER_RIGHT_D = 0.01;
 	}
 	
 	public class Intake {
@@ -63,6 +66,7 @@ public class Constants {
 		
 		//Joystick Buttons
 		public static final int TRIGGER = 1;
+		public static final int BUTT_TWO = 2;
 		
 		//Xbox Buttons
 		public static final int A = 1;
@@ -71,6 +75,7 @@ public class Constants {
 		public static final int Y = 4;
 		public static final int LB = 5;
 		public static final int RB = 6;
+		public static final int BACK = 7;
 		public static final int START = 8;
 	}
 	
@@ -116,5 +121,7 @@ public class Constants {
 		public static final double MID_PASS_LINE_VALUE_TWO = 50;
 		public static final double LEFT_TURN_VALUE = -90;
 		public static final double MID_PASS_LINE_VALUE_THREE = 40;
+		public static final double DIST_M_VALUE = 0.050942;
+		public static final double DIST_B_VALUE = 2.57894;
 	}
 }

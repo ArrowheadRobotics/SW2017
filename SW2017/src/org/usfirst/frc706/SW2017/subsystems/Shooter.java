@@ -14,12 +14,7 @@ public class Shooter extends Subsystem {
     private final CANTalon rightShooter = RobotMap.shooterRightShooter;
 
     public Shooter() {
-    	leftShooter.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-    	leftShooter.configEncoderCodesPerRev(128);
-    	leftShooter.reverseSensor(false);
-    	leftShooter.configNominalOutputVoltage(+0.0f, -0.0f);
-    	leftShooter.configPeakOutputVoltage(+12.0f, -12.0f);
-    	leftShooter.setPID(Constants.Shooter.SHOOTER_LEFT_P, Constants.Shooter.SHOOTER_LEFT_I, Constants.Shooter.SHOOTER_LEFT_D);	
+    	
     }
     
     public void initDefaultCommand() {

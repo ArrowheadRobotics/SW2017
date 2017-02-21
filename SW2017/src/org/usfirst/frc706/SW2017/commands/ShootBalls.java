@@ -7,6 +7,7 @@ import org.usfirst.frc706.SW2017.RobotMap;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ShootBalls extends Command {
@@ -14,6 +15,7 @@ public class ShootBalls extends Command {
 	private CANTalon conveyorMotor;
 	private CANTalon leftShooterMotor;
 	private CANTalon rightShooterMotor;
+	private AnalogInput ultra;
 	
     public ShootBalls() {
     }
@@ -23,19 +25,16 @@ public class ShootBalls extends Command {
     	conveyorMotor = RobotMap.shooterConveyorMotor;
     	leftShooterMotor = RobotMap.shooterLeftShooter;
     	rightShooterMotor = RobotMap.shooterRightShooter;
-//    	
-//    	leftShooterMotor.changeControlMode(TalonControlMode.Speed);
-//    	leftShooterMotor.set(Constants.Shooter.TARGET_LEFT);
-//    	
+    	ultra = RobotMap.ultra;
     }
 
     protected void execute() {
-    	double speed = getSpeed();
-    	System.out.println(speed);
+    	double[] spd = getSpeed();
+    	System.out.println(ultra.getValue() + "\t" + spd[0] + "\t" + spd[1]);
     	agitatorMotor.set(Constants.Shooter.AGITATOR_SPEED);
     	conveyorMotor.set(Constants.Shooter.CONVEYOR_SPEED);
-    	leftShooterMotor.set(speed);
-    	rightShooterMotor.set(speed*-1);
+    	leftShooterMotor.set(spd[0]);
+    	rightShooterMotor.set(spd[1]*-1);
     }
     
     protected boolean isFinished() {
@@ -52,13 +51,8 @@ public class ShootBalls extends Command {
     protected void interrupted() {
     }
     
-    protected double calculateSpeed() {
-    	return 1.0;
-    }
-    
-    protected double getSpeed() {
-    	double spd = Robot.oi.getLeftJoy().getY();
-    	spd = (1 + spd) * 0.5;
-    	return spd;
+    protected double[] getSpeed() {
+    	return new double[]{(3-Robot.oi.getLeftJoy().getZ())/(4),(3-Robot.oi.getRightJoy().getZ())/(4)};
+
     }
 }
