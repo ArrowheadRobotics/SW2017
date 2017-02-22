@@ -16,7 +16,6 @@ public class ShootBalls extends Command {
 	private CANTalon leftShooterMotor;
 	private CANTalon rightShooterMotor;
 	private AnalogInput ultra;
-	private boolean inPos;
 	
     public ShootBalls() {
     }
@@ -27,19 +26,20 @@ public class ShootBalls extends Command {
     	leftShooterMotor = RobotMap.shooterLeftShooter;
     	rightShooterMotor = RobotMap.shooterRightShooter;
     	ultra = RobotMap.ultra;
-    	inPos = false;
     }
 
     protected void execute() {
-    	if (Math.abs(ultra.getValue() - Constants.Shooter.OPTIMAL_POSITION) < 10) {
-    		inPos = true;
-    	}
+    	String msg = "";
+    	leftShooterMotor.changeControlMode(TalonControlMode.Speed);
+    	rightShooterMotor.changeControlMode(TalonControlMode.Speed);
     	double[] spd = getSpeed();
-    	System.out.println(spd[0] + "\t" + spd[1]);
     	agitatorMotor.set(Constants.Shooter.AGITATOR_SPEED);
     	conveyorMotor.set(Constants.Shooter.CONVEYOR_SPEED);
-    	leftShooterMotor.set(spd[0] * 5000);
-    	rightShooterMotor.set(spd[1]*-1*5000);
+    	leftShooterMotor.set(spd[0]*-2500);
+    	rightShooterMotor.set(spd[1]*2500);
+    	msg += spd[0]*5000 + "\t";
+    	msg += spd[1]*5000 + "\t";
+    	System.out.println(msg);
     }
     
     protected boolean isFinished() {
@@ -47,18 +47,18 @@ public class ShootBalls extends Command {
     }
 
     protected void end() {
+    	leftShooterMotor.changeControlMode(TalonControlMode.PercentVbus);
+    	rightShooterMotor.changeControlMode(TalonControlMode.PercentVbus);
     	agitatorMotor.set(0);
     	conveyorMotor.set(0);
     	leftShooterMotor.set(0);
     	rightShooterMotor.set(0);
-    	leftShooterMotor.changeControlMode(TalonControlMode.PercentVbus);
-    	rightShooterMotor.changeControlMode(TalonControlMode.PercentVbus);
     }
 
     protected void interrupted() {
     }
     
     protected double[] getSpeed() {
-    	return new double[]{Robot.oi.getLeftJoy().getZ(), Robot.oi.getRightJoy().getZ()};
+    	return new double[]{Robot.oi.getLeftJoy().getZ()+1, Robot.oi.getRightJoy().getZ()+1};
     }
 }

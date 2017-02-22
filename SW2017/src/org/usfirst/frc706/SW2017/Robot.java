@@ -18,11 +18,10 @@ public class Robot extends IterativeRobot {
     public static Shooter shooter;
     public static Intake intake;
     public static Gear gear;
-    public static UsbCamera frontCam, backCam;
+    public static UsbCamera frontCam;
 
     public Robot() {
         frontCam = CameraServer.getInstance().startAutomaticCapture("Front Cam", Constants.Chassis.FRONT_CAM);
-        backCam = CameraServer.getInstance().startAutomaticCapture("Back Cam", Constants.Chassis.BACK_CAM);
     }
     
     public void robotInit() {
@@ -35,8 +34,6 @@ public class Robot extends IterativeRobot {
         autonomousCommand = new AutonomousCommand();
         frontCam.setResolution(Constants.Chassis.IMAGE_WIDTH, Constants.Chassis.IMAGE_HEIGHT);
         frontCam.setFPS(Constants.Chassis.IMAGE_FPS);
-        backCam.setResolution(Constants.Chassis.IMAGE_HEIGHT, Constants.Chassis.IMAGE_WIDTH);
-        backCam.setFPS(Constants.Chassis.IMAGE_FPS);
     }
 
     public void disabledInit(){}

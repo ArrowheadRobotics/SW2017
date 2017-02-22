@@ -17,11 +17,10 @@ public class Constants {
 		public static final int SHIFTER_REVERSE = 5;
 		//Speeds & Rates
 		public static final double WINCH_CURRENT_MAX = 40;
-		public static final double CLIMB_SPEED = -1.0;
+		public static final double CLIMB_SPEED = 1.0;
 		
 		public static final double DRIVE_RAMP = 6;
 		public static final int FRONT_CAM = 0;
-		public static final int BACK_CAM = 1;
 	}
 	
 	public class Shooter {
@@ -31,18 +30,19 @@ public class Constants {
 		public static final int SHOOTER_LEFT = 10;
 		public static final int SHOOTER_RIGHT = 1;
 		//Speeds
-		public static final double AGITATOR_SPEED = 1.0;
+		public static final double AGITATOR_SPEED = -1.0;
 		public static final double CONVEYOR_SPEED = -1.0;
 		public static final double OPTIMAL_SPEED_LEFT = 0.75;
 		public static final double OPTIMAL_SPEED_RIGHT = 0.75;
 		//PID
 		public static final double SHOOTER_LEFT_P = 0.01;
-		public static final double SHOOTER_LEFT_I = 0.01;
-		public static final double SHOOTER_LEFT_D = 0.01;
+		public static final double SHOOTER_LEFT_I = 0.0;
+		public static final double SHOOTER_LEFT_D = 0.0;
 		public static final double SHOOTER_RIGHT_P = 0.01;
-		public static final double SHOOTER_RIGHT_I = 0.01;
-		public static final double SHOOTER_RIGHT_D = 0.01;
+		public static final double SHOOTER_RIGHT_I = 0.0;
+		public static final double SHOOTER_RIGHT_D = 0.0;
 		public static final int OPTIMAL_POSITION = 60;
+		public static final double CLOSE_SHOOT_SPEED = 0;
 	}
 	
 	public class Intake {
@@ -54,10 +54,10 @@ public class Constants {
 	
 	public class Gear {
 		//PCM Ports
-		public static final int RELEASE_FORWARD = 0;
-		public static final int RELEASE_REVERSE = 1;
-		public static final int RECEIVE_FORWARD = 2;
-		public static final int RECEIVE_REVERSE = 3;
+		public static final int RELEASE_FORWARD = 2;
+		public static final int RELEASE_REVERSE = 3;
+		public static final int RECEIVE_FORWARD = 0;
+		public static final int RECEIVE_REVERSE = 1;
 	}
 	
 	public class OI {

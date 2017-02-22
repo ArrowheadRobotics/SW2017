@@ -20,20 +20,16 @@ public class Shooter extends Subsystem {
     public void initDefaultCommand() {
     	leftShooter.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	rightShooter.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-    	leftShooter.reverseSensor(true);
-    	rightShooter.reverseSensor(true);
+    	leftShooter.reverseSensor(false);
+    	rightShooter.reverseSensor(false);
     	leftShooter.configNominalOutputVoltage(+0, -0);
     	rightShooter.configNominalOutputVoltage(+0, -0);
     	leftShooter.configPeakOutputVoltage(+12, -12);
     	rightShooter.configPeakOutputVoltage(+12, -12);
-    	leftShooter.setProfile(0);
-    	rightShooter.setProfile(0);
-    	leftShooter.setP(Constants.Shooter.SHOOTER_LEFT_P);
-    	leftShooter.setI(Constants.Shooter.SHOOTER_LEFT_I);
-    	leftShooter.setD(Constants.Shooter.SHOOTER_LEFT_D);
-    	rightShooter.setP(Constants.Shooter.SHOOTER_RIGHT_P);
-    	rightShooter.setI(Constants.Shooter.SHOOTER_RIGHT_I);
-    	rightShooter.setD(Constants.Shooter.SHOOTER_RIGHT_D);
+    	leftShooter.configEncoderCodesPerRev(8196);
+    	rightShooter.configEncoderCodesPerRev(8196);
+    	leftShooter.setPID(Constants.Shooter.SHOOTER_LEFT_P, Constants.Shooter.SHOOTER_LEFT_I, Constants.Shooter.SHOOTER_LEFT_D);
+    	rightShooter.setPID(Constants.Shooter.SHOOTER_RIGHT_P, Constants.Shooter.SHOOTER_RIGHT_I, Constants.Shooter.SHOOTER_RIGHT_D);
     }
 }
 
