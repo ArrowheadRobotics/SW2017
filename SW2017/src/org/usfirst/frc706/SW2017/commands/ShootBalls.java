@@ -16,6 +16,7 @@ public class ShootBalls extends Command {
 	private CANTalon leftShooterMotor;
 	private CANTalon rightShooterMotor;
 	private AnalogInput ultra;
+	private boolean inPos;
 	
     public ShootBalls() {
     }
@@ -26,15 +27,19 @@ public class ShootBalls extends Command {
     	leftShooterMotor = RobotMap.shooterLeftShooter;
     	rightShooterMotor = RobotMap.shooterRightShooter;
     	ultra = RobotMap.ultra;
+    	inPos = false;
     }
 
     protected void execute() {
+    	if (Math.abs(ultra.getValue() - Constants.Shooter.OPTIMAL_POSITION) < 10) {
+    		inPos = true;
+    	}
     	double[] spd = getSpeed();
-    	System.out.println(ultra.getValue() + "\t" + spd[0] + "\t" + spd[1]);
+    	System.out.println(spd[0] + "\t" + spd[1]);
     	agitatorMotor.set(Constants.Shooter.AGITATOR_SPEED);
     	conveyorMotor.set(Constants.Shooter.CONVEYOR_SPEED);
-    	leftShooterMotor.set(spd[0]);
-    	rightShooterMotor.set(spd[1]*-1);
+    	leftShooterMotor.set(spd[0] * 5000);
+    	rightShooterMotor.set(spd[1]*-1*5000);
     }
     
     protected boolean isFinished() {
@@ -46,13 +51,14 @@ public class ShootBalls extends Command {
     	conveyorMotor.set(0);
     	leftShooterMotor.set(0);
     	rightShooterMotor.set(0);
+    	leftShooterMotor.changeControlMode(TalonControlMode.PercentVbus);
+    	rightShooterMotor.changeControlMode(TalonControlMode.PercentVbus);
     }
 
     protected void interrupted() {
     }
     
     protected double[] getSpeed() {
-    	return new double[]{(3-Robot.oi.getLeftJoy().getZ())/(4),(3-Robot.oi.getRightJoy().getZ())/(4)};
-
+    	return new double[]{Robot.oi.getLeftJoy().getZ(), Robot.oi.getRightJoy().getZ()};
     }
 }

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class AutonomousCommand extends Command {
@@ -51,14 +52,21 @@ public class AutonomousCommand extends Command {
     	position = getPosition();
     	mult = (alliance == DriverStation.Alliance.Red) ? 1 : -1;
     	posOneCommands = new double[][]{
-    		{Constants.Autonomous.DRIVE_COMMAND, 0.5},
-    		{Constants.Autonomous.WAIT_COMMAND, 1000},
+    		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.DRIVE_SPEED},
+    		{Constants.Autonomous.WAIT_COMMAND, 1},
     		{Constants.Autonomous.ESTOP_COMMAND, 0}
     	};
     	posTwoCommands = new double[][]{
+    		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.DRIVE_SPEED},
+    		{Constants.Autonomous.WAIT_COMMAND, 0.5},
+    		{Constants.Autonomous.ESTOP_COMMAND, 0},
+    		{Constants.Autonomous.VISION_COMMAND, Constants.Autonomous.VISION_MIN_DIST},
+    		{Constants.Autonomous.ESTOP_COMMAND, 0}
     	};
     	posThreeCommands = new double[][]{
-    		{}
+    		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.DRIVE_SPEED},
+    		{Constants.Autonomous.WAIT_COMMAND, 1},
+    		{Constants.Autonomous.ESTOP_COMMAND, 0}
     	};
     }
 
@@ -72,11 +80,11 @@ public class AutonomousCommand extends Command {
    			System.out.println(state);
     		break;
     	case 1:
-        	command = posTwoCommands[Math.min(state, posOneCommands.length-1)];
+        	command = posTwoCommands[Math.min(state, posTwoCommands.length-1)];
    			doCommand((int) command[0], command[1]);
    			break;
    		case 2:
-        	command = posThreeCommands[Math.min(state, posOneCommands.length-1)];
+        	command = posThreeCommands[Math.min(state, posThreeCommands.length-1)];
    			doCommand((int) command[0], command[1]);
    			break;
    		case 3:
@@ -90,11 +98,9 @@ public class AutonomousCommand extends Command {
     }
 
     protected void end() {
-    	state = 0;
     }
 
     protected void interrupted() {
-    	state = 0;
     }
     
     protected double getDistance() {
@@ -212,18 +218,10 @@ public class AutonomousCommand extends Command {
     	rightMotorTwo.set(spd*-1);
     }
     
-    protected void delay(long time) {
-    	try {
-    		Thread.sleep(time);
-    	}
-    	catch (InterruptedException e) {}
-    	incState();
-    }
-    
     protected void doCommand(int command, double value) {
     	switch (command) {
     	case Constants.Autonomous.WAIT_COMMAND:
-    		delay((long) value);
+    		Timer.delay((long) value);
     		break;
     	case Constants.Autonomous.DRIVE_COMMAND:
     		drive(value);
