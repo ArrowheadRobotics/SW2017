@@ -43,6 +43,7 @@ public class Constants {
 		public static final double SHOOTER_RIGHT_D = 0.0;
 		public static final int OPTIMAL_POSITION = 60;
 		public static final double CLOSE_SHOOT_SPEED = 0;
+		public static final double SHOT_DELAY = 3;
 	}
 	
 	public class Intake {

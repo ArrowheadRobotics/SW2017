@@ -1,13 +1,13 @@
 package org.usfirst.frc706.SW2017;
 
 import org.usfirst.frc706.SW2017.commands.Climb;
+import org.usfirst.frc706.SW2017.commands.Release;
 import org.usfirst.frc706.SW2017.commands.ReverseClimb;
 import org.usfirst.frc706.SW2017.commands.ReverseConveyor;
 import org.usfirst.frc706.SW2017.commands.RunIntake;
 import org.usfirst.frc706.SW2017.commands.Shift;
 import org.usfirst.frc706.SW2017.commands.ShootBalls;
 import org.usfirst.frc706.SW2017.commands.ToggleReceive;
-import org.usfirst.frc706.SW2017.commands.ToggleRelease;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -39,7 +39,7 @@ public class OI {
         leftTrigger.whenPressed(new Shift());
         a.whenPressed(new RunIntake());
         buttTwo.whenPressed(new ReverseConveyor());
-        x.whenPressed(new ToggleRelease());
+        x.whenPressed(new Release());
         y.whenPressed(new ToggleReceive());
         start.whenPressed(new Climb());
         back.whenPressed(new ReverseClimb());

@@ -8,6 +8,7 @@ import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ShootBalls extends Command {
@@ -26,20 +27,18 @@ public class ShootBalls extends Command {
     	leftShooterMotor = RobotMap.shooterLeftShooter;
     	rightShooterMotor = RobotMap.shooterRightShooter;
     	ultra = RobotMap.ultra;
+    	leftShooterMotor.changeControlMode(TalonControlMode.Speed);
+    	rightShooterMotor.changeControlMode(TalonControlMode.Speed);
+    	leftShooterMotor.set(getSpeed()[0]*-2500);
+    	rightShooterMotor.set(getSpeed()[1]*2500);
+    	Timer.delay(Constants.Shooter.SHOT_DELAY);
     }
 
     protected void execute() {
-    	String msg = "";
-    	leftShooterMotor.changeControlMode(TalonControlMode.Speed);
-    	rightShooterMotor.changeControlMode(TalonControlMode.Speed);
-    	double[] spd = getSpeed();
     	agitatorMotor.set(Constants.Shooter.AGITATOR_SPEED);
     	conveyorMotor.set(Constants.Shooter.CONVEYOR_SPEED);
-    	leftShooterMotor.set(spd[0]*-2500);
-    	rightShooterMotor.set(spd[1]*2500);
-    	msg += spd[0]*5000 + "\t";
-    	msg += spd[1]*5000 + "\t";
-    	System.out.println(msg);
+    	leftShooterMotor.set(getSpeed()[0]*-2500);
+    	rightShooterMotor.set(getSpeed()[1]*2500);
     }
     
     protected boolean isFinished() {

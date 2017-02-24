@@ -1,7 +1,6 @@
 package org.usfirst.frc706.SW2017.commands;
 
 import org.usfirst.frc706.SW2017.Robot;
-import org.usfirst.frc706.SW2017.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 

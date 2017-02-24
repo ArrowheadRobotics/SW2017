@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class AutonomousCommand extends Command {
@@ -53,19 +52,19 @@ public class AutonomousCommand extends Command {
     	mult = (alliance == DriverStation.Alliance.Red) ? 1 : -1;
     	posOneCommands = new double[][]{
     		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.DRIVE_SPEED},
-    		{Constants.Autonomous.WAIT_COMMAND, 1},
+    		{Constants.Autonomous.WAIT_COMMAND, System.currentTimeMillis() + 1000},
     		{Constants.Autonomous.ESTOP_COMMAND, 0}
     	};
     	posTwoCommands = new double[][]{
     		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.DRIVE_SPEED},
-    		{Constants.Autonomous.WAIT_COMMAND, 0.5},
+    		{Constants.Autonomous.WAIT_COMMAND, System.currentTimeMillis() + 1000},
     		{Constants.Autonomous.ESTOP_COMMAND, 0},
     		{Constants.Autonomous.VISION_COMMAND, Constants.Autonomous.VISION_MIN_DIST},
     		{Constants.Autonomous.ESTOP_COMMAND, 0}
     	};
     	posThreeCommands = new double[][]{
     		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.DRIVE_SPEED},
-    		{Constants.Autonomous.WAIT_COMMAND, 1},
+    		{Constants.Autonomous.WAIT_COMMAND, System.currentTimeMillis() + 1000},
     		{Constants.Autonomous.ESTOP_COMMAND, 0}
     	};
     }
@@ -77,7 +76,6 @@ public class AutonomousCommand extends Command {
     	case 0:
         	command = posOneCommands[Math.min(state, posOneCommands.length-1)];
    			doCommand((int) command[0], command[1]);
-   			System.out.println(state);
     		break;
     	case 1:
         	command = posTwoCommands[Math.min(state, posTwoCommands.length-1)];
@@ -218,10 +216,16 @@ public class AutonomousCommand extends Command {
     	rightMotorTwo.set(spd*-1);
     }
     
+    protected void checkTime(double value) {
+    	if (System.currentTimeMillis() > value) {
+    		incState();
+    	}
+    }
+    
     protected void doCommand(int command, double value) {
     	switch (command) {
     	case Constants.Autonomous.WAIT_COMMAND:
-    		Timer.delay((long) value);
+    		checkTime(value);
     		break;
     	case Constants.Autonomous.DRIVE_COMMAND:
     		drive(value);
