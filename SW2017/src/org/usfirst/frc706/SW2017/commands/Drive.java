@@ -14,7 +14,9 @@ public class Drive extends Command {
     }
 
     protected void execute() {
-    	Robot.chassis.move(Robot.oi.getRightJoy().getY(), Robot.oi.getLeftJoy().getY());
+    	if (!Robot.auton) {
+    		Robot.chassis.move(Robot.oi.getRightJoy().getY(), Robot.oi.getLeftJoy().getY());
+    	}
     }
     
     protected boolean isFinished() {

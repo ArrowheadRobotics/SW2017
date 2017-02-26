@@ -21,7 +21,7 @@ public class RobotMap {
     public static DoubleSolenoid chassisShiftSol;
     public static DoubleSolenoid gearReceiveFlap;
     public static AnalogInput ultra;
-    public static DigitalInput autoLeft, autoRight;
+    public static AnalogInput autoLeft, autoRight;
     public static DigitalInput stateReadOne, stateReadTwo;
     public static AHRS nav;
 
@@ -41,8 +41,8 @@ public class RobotMap {
         gearReleaseFlap = new DoubleSolenoid(Constants.PCM.PCM_ONE, Constants.Gear.RELEASE_FORWARD, Constants.Gear.RELEASE_REVERSE);
         gearReceiveFlap = new DoubleSolenoid(Constants.PCM.PCM_ONE, Constants.Gear.RECEIVE_FORWARD, Constants.Gear.RECEIVE_REVERSE);
         ultra = new AnalogInput(Constants.Autonomous.ULTRA);
-        autoLeft = new DigitalInput(Constants.Autonomous.AUTO_LEFT);
-        autoRight = new DigitalInput(Constants.Autonomous.AUTO_RIGHT);
+        autoLeft = new AnalogInput(Constants.Autonomous.AUTO_LEFT);
+        autoRight = new AnalogInput(Constants.Autonomous.AUTO_RIGHT);
         stateReadOne = new DigitalInput(Constants.Autonomous.STATE_SELECTOR_MSB);
         stateReadTwo = new DigitalInput(Constants.Autonomous.STATE_SELECTOR_LSB);
         nav = new AHRS(Port.kMXP);

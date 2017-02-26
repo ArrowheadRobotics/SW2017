@@ -17,10 +17,11 @@ public class Constants {
 		public static final int SHIFTER_REVERSE = 5;
 		//Speeds & Rates
 		public static final double WINCH_CURRENT_MAX = 40;
-		public static final double CLIMB_SPEED = 1.0;
+		public static final double CLIMB_SPEED = -1.0;
 		
 		public static final double DRIVE_RAMP = 6;
 		public static final int FRONT_CAM = 0;
+		public static final double ROTATE_ZONE = 10;
 	}
 	
 	public class Shooter {
@@ -30,7 +31,7 @@ public class Constants {
 		public static final int SHOOTER_LEFT = 10;
 		public static final int SHOOTER_RIGHT = 1;
 		//Speeds
-		public static final double AGITATOR_SPEED = -1.0;
+		public static final double AGITATOR_SPEED = 1.0;
 		public static final double CONVEYOR_SPEED = -1.0;
 		public static final double OPTIMAL_SPEED_LEFT = 0.75;
 		public static final double OPTIMAL_SPEED_RIGHT = 0.75;
@@ -42,8 +43,8 @@ public class Constants {
 		public static final double SHOOTER_RIGHT_I = 0.0;
 		public static final double SHOOTER_RIGHT_D = 0.0;
 		public static final int OPTIMAL_POSITION = 60;
-		public static final double CLOSE_SHOOT_SPEED = 0;
-		public static final double SHOT_DELAY = 3;
+		public static final double CLOSE_SHOOT_SPEED = 0.7;
+		public static final double SHOT_DELAY = 0.3;
 	}
 	
 	public class Intake {
@@ -80,6 +81,7 @@ public class Constants {
 		public static final int RB = 6;
 		public static final int BACK = 7;
 		public static final int START = 8;
+		public static final double DEAD_ZONE = 0.15;
 	}
 	
 	public class PCM {
@@ -90,6 +92,8 @@ public class Constants {
 	public class Autonomous {
 		public static final int STATE_SELECTOR_MSB = 2;
 		public static final int STATE_SELECTOR_LSB = 3;
+		public static final int OPENL_COMMAND = 0x33;
+		public static final int CLOSEL_COMMAND = 0x44;
 		public static final int DRIVE_DIST_COMMAND = 0x55;
 		public static final int WAIT_COMMAND = 0x66;
 		public static final int DRIVE_COMMAND = 0x77;
@@ -101,14 +105,11 @@ public class Constants {
 		public static final int STOP_COMMAND = 0xdd;
 		public static final int ESTOP_COMMAND = 0xee;
 		public static final int DANCE_COMMAND = 0xff;
-		public static final int POS_ONE_COMMANDS = 10;
-		public static final int POS_TWO_COMMANDS = 8;
-		public static final int POS_THREE_COMMANDS = 6;
-		public static final int ULTRA = 2;
-		public static final int AUTO_LEFT = 0;
-		public static final int AUTO_RIGHT = 1;
+		public static final int ULTRA = 1;
+		public static final int AUTO_LEFT = 2;
+		public static final int AUTO_RIGHT = 3;
 		//Speeds
-		public static final double DRIVE_SPEED = 0.7;
+		public static final double DRIVE_SPEED = 1.0;
 		public static final double SPEED_MULTIPLIER = 0.001;
 		// position values
 		public static final double POS_ONE_DIST_ONE = 0;
@@ -126,5 +127,6 @@ public class Constants {
 		public static final double MID_PASS_LINE_VALUE_THREE = 40;
 		public static final double DIST_M_VALUE = 0.050942;
 		public static final double DIST_B_VALUE = 2.57894;
+		public static final double VISION_SPEED = 0.3;
 	}
 }

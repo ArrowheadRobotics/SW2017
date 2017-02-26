@@ -3,6 +3,7 @@ package org.usfirst.frc706.SW2017;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
@@ -19,6 +20,7 @@ public class Robot extends IterativeRobot {
     public static Intake intake;
     public static Gear gear;
     public static UsbCamera frontCam;
+    public static boolean auton;
 
     public Robot() {
         frontCam = CameraServer.getInstance().startAutomaticCapture("Front Cam", Constants.Chassis.FRONT_CAM);
@@ -41,18 +43,23 @@ public class Robot extends IterativeRobot {
     public void disabledPeriodic() {}
 
     public void autonomousInit() {
+    	auton = true;
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
     public void autonomousPeriodic() {
+    	auton = true;
     	Scheduler.getInstance().run();
     }
 
     public void teleopInit() {
+    	auton = false;
         if (autonomousCommand != null) autonomousCommand.cancel();
     }
 
     public void teleopPeriodic() {
+    	System.out.println(RobotMap.autoLeft.getValue() + "\t" + RobotMap.autoRight.getValue());
+    	auton = false;
     	Scheduler.getInstance().run();
     }
 

@@ -20,8 +20,8 @@ public class ReverseClimb extends Command {
     }
 
     protected void execute() {
-    	climbMotorOne.set(Constants.Chassis.CLIMB_SPEED*-1);
-    	climbMotorTwo.set(Constants.Chassis.CLIMB_SPEED*-1);
+    	climbMotorOne.set(Constants.Chassis.CLIMB_SPEED*-0.15);
+    	climbMotorTwo.set(Constants.Chassis.CLIMB_SPEED*-0.15);
     }
     
     protected boolean isFinished() {

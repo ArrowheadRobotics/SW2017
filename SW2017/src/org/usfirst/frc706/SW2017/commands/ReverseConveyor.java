@@ -23,7 +23,7 @@ public class ReverseConveyor extends Command {
     }
     
     protected boolean isFinished() {
-        return !(Robot.oi.buttTwo.get());
+        return !(Robot.oi.rightButtTwo.get());
     }
 
     protected void end() {
