@@ -92,6 +92,7 @@ public class Constants {
 	public class Autonomous {
 		public static final int STATE_SELECTOR_MSB = 2;
 		public static final int STATE_SELECTOR_LSB = 3;
+		public static final int DRIVE_BACK_COMMAND = 0x22;
 		public static final int OPENL_COMMAND = 0x33;
 		public static final int CLOSEL_COMMAND = 0x44;
 		public static final int DRIVE_DIST_COMMAND = 0x55;
@@ -127,6 +128,7 @@ public class Constants {
 		public static final double MID_PASS_LINE_VALUE_THREE = 40;
 		public static final double DIST_M_VALUE = 0.050942;
 		public static final double DIST_B_VALUE = 2.57894;
-		public static final double VISION_SPEED = 0.3;
+		public static final double VISION_SPEED_HIGH = 0.4	;
+		public static final double VISION_SPEED_LOW = 0.1;
 	}
 }

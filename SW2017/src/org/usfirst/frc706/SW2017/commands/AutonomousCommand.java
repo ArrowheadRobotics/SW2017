@@ -28,6 +28,8 @@ public class AutonomousCommand extends Command {
 	private int state;
 	private int mult;
 	private int position;
+	private long start = 0;
+	private double ang = 0;
 	private double[][] posOneCommands, posTwoCommands, posThreeCommands;
 
     public AutonomousCommand() {
@@ -46,7 +48,7 @@ public class AutonomousCommand extends Command {
     	stateReadOne = RobotMap.stateReadOne;
     	stateReadTwo = RobotMap.stateReadTwo;
     	releaseSol = RobotMap.gearReleaseFlap;
-    	releaseSol = RobotMap.gearReceiveFlap;
+    	receiveSol = RobotMap.gearReceiveFlap;
     	ultra = RobotMap.ultra;
     	autoLeft = RobotMap.autoLeft;
     	autoRight = RobotMap.autoRight;
@@ -56,19 +58,24 @@ public class AutonomousCommand extends Command {
     	mult = (alliance == DriverStation.Alliance.Red) ? 1 : -1;
     	posOneCommands = new double[][]{
     		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.WAIT_COMMAND, 0.5},
+    		{Constants.Autonomous.WAIT_COMMAND, 0.4},
     		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.WAIT_COMMAND, 0.5},
-    		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.WAIT_COMMAND, 0.5},
-    		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE}
+    		{Constants.Autonomous.ROTATE_COMMAND, nav.getYaw() + 360 + 45},
+    		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
+    		{Constants.Autonomous.VISION_COMMAND, Constants.Autonomous.NULL_VALUE}
     	};
     	posTwoCommands = new double[][]{
     		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.WAIT_COMMAND, 0.5},
+    		{Constants.Autonomous.WAIT_COMMAND, 0.35},
     		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.WAIT_COMMAND, 1},
+    		{Constants.Autonomous.WAIT_COMMAND, 0.2},
     		{Constants.Autonomous.VISION_COMMAND, Constants.Autonomous.NULL_VALUE},
+    		{Constants.Autonomous.OPENL_COMMAND, Constants.Autonomous.NULL_VALUE},
+    		{Constants.Autonomous.WAIT_COMMAND, 0.25},
+    		{Constants.Autonomous.DRIVE_BACK_COMMAND, Constants.Autonomous.NULL_VALUE},
+    		{Constants.Autonomous.WAIT_COMMAND, 0.35},
+    		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
+    		{Constants.Autonomous.CLOSE_COMMAND, Constants.Autonomous.NULL_VALUE}
     	};
     	posThreeCommands = new double[][]{
     		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE}
@@ -76,7 +83,7 @@ public class AutonomousCommand extends Command {
     }
 
     protected void execute() {
-    	position = 1;
+    	position = 0;
     	double[] command = new double[]{};	
     	switch (position) {
     	case 0:
@@ -148,6 +155,14 @@ public class AutonomousCommand extends Command {
     	incState();
     }
     
+    protected void driveBack() {
+    	leftMotorOne.set(Constants.Autonomous.DRIVE_SPEED*-1);
+    	leftMotorTwo.set(Constants.Autonomous.DRIVE_SPEED*-1);
+    	rightMotorOne.set(Constants.Autonomous.DRIVE_SPEED);
+    	rightMotorTwo.set(Constants.Autonomous.DRIVE_SPEED);
+    	incState();
+    }
+    
     protected void driveToDist(double dist) {
     	double err = dist - getDistance();
     	double spd = Constants.Autonomous.SPEED_MULTIPLIER * err;
@@ -163,31 +178,34 @@ public class AutonomousCommand extends Command {
     }
     
     protected void rotateTo(double deg) {
-    	double err = deg - getAngle();
-    	double spd = Constants.Autonomous.SPEED_MULTIPLIER * err;
-    	if (err < Constants.Autonomous.MIN_ANG_ERR) {
+    	System.out.println(Math.abs(nav.getYaw() + 360 - deg));
+    	if (Math.abs(nav.getYaw() + 360 - deg) < 5) {
     		incState();
     	}
-    	else {
-        	leftMotorOne.set(spd);
-        	leftMotorTwo.set(spd);
-        	rightMotorOne.set(spd);
-        	rightMotorTwo.set(spd);	
+    	if (nav.getYaw() > deg) {
+    		leftMotorOne.set(0.5 * (nav.getYaw() + 360 - deg) * 0.025);
+    		leftMotorTwo.set(0.5 * (nav.getYaw() + 360 - deg) * 0.025);
     	}
-    	
+    	else {
+    		rightMotorOne.set(0.5 * (nav.getYaw() + 360 - deg) * 0.025);
+    		rightMotorTwo.set(0.5 * (nav.getYaw() + 360 - deg) * 0.025);
+    	}
     }
     
     protected void driveWithVision() {
     	System.out.println(getInputs()[0] + "\t" + getInputs()[1]);
-    	if (getDistance() > Constants.Autonomous.VISION_MIN_DIST) {
-    		leftMotorOne.set(getInputs()[0] ? Constants.Autonomous.VISION_SPEED : 0);
-    		leftMotorTwo.set(getInputs()[0] ? Constants.Autonomous.VISION_SPEED : 0);
-    		rightMotorOne.set(getInputs()[1] ? Constants.Autonomous.VISION_SPEED*-1 : 0);
-    		rightMotorTwo.set(getInputs()[1] ? Constants.Autonomous.VISION_SPEED*-1 : 0);
-    	}
-    	else {
-    		incState();
-    	}
+   		leftMotorOne.set(getInputs()[0] ? Constants.Autonomous.VISION_SPEED_HIGH : Constants.Autonomous.VISION_SPEED_LOW);
+   		leftMotorTwo.set(getInputs()[0] ? Constants.Autonomous.VISION_SPEED_HIGH : Constants.Autonomous.VISION_SPEED_LOW);
+   		rightMotorOne.set(getInputs()[1] ? Constants.Autonomous.VISION_SPEED_HIGH*-1 : Constants.Autonomous.VISION_SPEED_LOW*-1);
+   		rightMotorTwo.set(getInputs()[1] ? Constants.Autonomous.VISION_SPEED_HIGH*-1 : Constants.Autonomous.VISION_SPEED_LOW*-1);
+   		if (start == 0) {
+   			start = System.currentTimeMillis();
+   		}
+   		else {
+   			if (System.currentTimeMillis() - start > 2000) {
+   				incState();
+   			}
+   		}
     }
     
     protected void openRelease() {
@@ -230,6 +248,7 @@ public class AutonomousCommand extends Command {
     	rightShooterMotor.set(0);
     	conveyorMotor.set(0);
     	agitatorMotor.set(0);
+    	System.out.println(nav.getYaw() + 360);
     	incState();
     }
     
@@ -252,6 +271,9 @@ public class AutonomousCommand extends Command {
     	switch (command) {
     	case Constants.Autonomous.WAIT_COMMAND:
     		pauseFor(value);
+    		break;
+    	case Constants.Autonomous.DRIVE_BACK_COMMAND:
+    		driveBack();
     		break;
     	case Constants.Autonomous.DRIVE_COMMAND:
     		driveStraight();
