@@ -128,7 +128,7 @@ public class Constants {
 		public static final double MID_PASS_LINE_VALUE_THREE = 40;
 		public static final double DIST_M_VALUE = 0.050942;
 		public static final double DIST_B_VALUE = 2.57894;
-		public static final double VISION_SPEED_HIGH = 0.4	;
+		public static final double VISION_SPEED_HIGH = 0.4;
 		public static final double VISION_SPEED_LOW = 0.1;
 	}
 }

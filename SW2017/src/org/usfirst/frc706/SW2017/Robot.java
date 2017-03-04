@@ -58,7 +58,6 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopPeriodic() {
-    	System.out.println(RobotMap.autoLeft.getValue() + "\t" + RobotMap.autoRight.getValue());
     	auton = false;
     	Scheduler.getInstance().run();
     }
