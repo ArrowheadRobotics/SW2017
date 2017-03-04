@@ -43,8 +43,8 @@ public class Constants {
 		public static final double SHOOTER_RIGHT_I = 0.0;
 		public static final double SHOOTER_RIGHT_D = 0.0;
 		public static final int OPTIMAL_POSITION = 60;
-		public static final double CLOSE_SHOOT_SPEED = 0.7;
-		public static final double SHOT_DELAY = 0.3;
+		public static final double CLOSE_SHOOT_SPEED = 0.75;
+		public static final double SHOT_DELAY = 0.4;
 	}
 	
 	public class Intake {
@@ -58,8 +58,11 @@ public class Constants {
 		//PCM Ports
 		public static final int RELEASE_FORWARD = 2;
 		public static final int RELEASE_REVERSE = 3;
-		public static final int RECEIVE_FORWARD = 0;
-		public static final int RECEIVE_REVERSE = 1;
+		public static final int PICK_UP_FORWARD = 0;
+		public static final int PICK_UP_REVERSE = 1;
+		public static final int SQUEEZE_FORWARD = 6;
+		public static final int SQUEEZE_REVERSE = 7;
+		public static final int SERVO = 1;
 	}
 	
 	public class OI {
@@ -91,7 +94,10 @@ public class Constants {
 	
 	public class Autonomous {
 		public static final int STATE_SELECTOR_MSB = 2;
+		
 		public static final int STATE_SELECTOR_LSB = 3;
+		public static final int RAISE_FLAP_COMMAND = 0x00;
+		public static final int VISION_ROTATE_COMMAND = 0x11;
 		public static final int DRIVE_BACK_COMMAND = 0x22;
 		public static final int OPENL_COMMAND = 0x33;
 		public static final int CLOSEL_COMMAND = 0x44;
@@ -129,6 +135,7 @@ public class Constants {
 		public static final double DIST_M_VALUE = 0.050942;
 		public static final double DIST_B_VALUE = 2.57894;
 		public static final double VISION_SPEED_HIGH = 0.4;
-		public static final double VISION_SPEED_LOW = 0.1;
+		public static final double VISION_SPEED_LOW = 0.2;
+		public static final double ROTATE_SPEED = 0.65;
 	}
 }

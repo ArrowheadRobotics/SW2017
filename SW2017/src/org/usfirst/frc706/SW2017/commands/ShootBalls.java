@@ -27,6 +27,8 @@ public class ShootBalls extends Command {
     	leftShooterMotor = RobotMap.shooterLeftShooter;
     	rightShooterMotor = RobotMap.shooterRightShooter;
     	ultra = RobotMap.ultra;
+    	leftShooterMotor.enable();
+    	rightShooterMotor.enable();
     	leftShooterMotor.changeControlMode(TalonControlMode.Speed);
     	rightShooterMotor.changeControlMode(TalonControlMode.Speed);
     	leftShooterMotor.set(getSpeed()[0]*-2500);
@@ -37,8 +39,10 @@ public class ShootBalls extends Command {
     protected void execute() {
     	agitatorMotor.set(Constants.Shooter.AGITATOR_SPEED);
     	conveyorMotor.set(Constants.Shooter.CONVEYOR_SPEED);
-    	leftShooterMotor.set(getSpeed()[0]*-2500);
-    	rightShooterMotor.set(getSpeed()[1]*2500);
+    	leftShooterMotor.set(-1590/*getSpeed()[0]*-2500*/);
+    	System.out.println("Right Enc: " + rightShooterMotor.getEncVelocity());
+    	rightShooterMotor.set(990/*getSpeed()[1]*2500*/);
+    	System.out.println("Left: " + getSpeed()[0] + "  " + "Right: " + getSpeed()[1]);
     }
     
     protected boolean isFinished() {

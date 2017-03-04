@@ -2,6 +2,7 @@ package org.usfirst.frc706.SW2017;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -54,6 +55,7 @@ public class Robot extends IterativeRobot {
 
     public void teleopInit() {
     	auton = false;
+    	RobotMap.pickUpSol.set(Value.kForward);
         if (autonomousCommand != null) autonomousCommand.cancel();
     }
 

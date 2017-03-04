@@ -1,30 +1,32 @@
 package org.usfirst.frc706.SW2017.commands;
 
+import org.usfirst.frc706.SW2017.Robot;
 import org.usfirst.frc706.SW2017.RobotMap;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ToggleReceive extends Command {
-	private Servo receiveServo;
+public class Squeeze extends Command {
+	private DoubleSolenoid squeezeSol = RobotMap.gearSqueezeSol;
 	
-    public ToggleReceive() {
+    public Squeeze() {
     }
 
     protected void initialize() {
-    	receiveServo = RobotMap.receiveServo;
+      	squeezeSol.set(Value.kReverse);
     }
 
     protected void execute() {
-    	receiveServo.set(receiveServo.get() > 0.5 ? 0.31 : 1.0);
+  
     }
     
     protected boolean isFinished() {
-        return true;
+        return !(Robot.oi.rb.get());
     }
 
     protected void end() {
+    	squeezeSol.set(Value.kForward);
     }
 
     protected void interrupted() {

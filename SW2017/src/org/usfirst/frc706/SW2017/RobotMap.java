@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.Servo;
 
 public class RobotMap {
     public static CANTalon chassisLeftDriveOne, chassisLeftDriveTwo;
@@ -17,9 +18,10 @@ public class RobotMap {
     public static CANTalon shooterAgitatorMotor;
     public static CANTalon shooterLeftShooter, shooterRightShooter;
     public static CANTalon intakeIntakeMotor;
-    public static DoubleSolenoid gearReleaseFlap;
+    public static DoubleSolenoid gearReleaseFlap, gearSqueezeSol;
     public static DoubleSolenoid chassisShiftSol;
-    public static DoubleSolenoid gearReceiveFlap;
+    public static DoubleSolenoid pickUpSol;
+    public static Servo receiveServo;
     public static AnalogInput ultra;
     public static AnalogInput autoLeft, autoRight;
     public static DigitalInput stateReadOne, stateReadTwo;
@@ -39,7 +41,9 @@ public class RobotMap {
         intakeIntakeMotor = new CANTalon(Constants.Intake.INTAKE);
         chassisShiftSol = new DoubleSolenoid(Constants.PCM.PCM_ONE, Constants.Chassis.SHIFTER_FORWARD, Constants.Chassis.SHIFTER_REVERSE);
         gearReleaseFlap = new DoubleSolenoid(Constants.PCM.PCM_ONE, Constants.Gear.RELEASE_FORWARD, Constants.Gear.RELEASE_REVERSE);
-        gearReceiveFlap = new DoubleSolenoid(Constants.PCM.PCM_ONE, Constants.Gear.RECEIVE_FORWARD, Constants.Gear.RECEIVE_REVERSE);
+        pickUpSol = new DoubleSolenoid(Constants.PCM.PCM_ONE, Constants.Gear.PICK_UP_FORWARD, Constants.Gear.PICK_UP_REVERSE);
+        gearSqueezeSol = new DoubleSolenoid(Constants.PCM.PCM_ONE, Constants.Gear.SQUEEZE_FORWARD, Constants.Gear.SQUEEZE_REVERSE);
+        receiveServo = new Servo(Constants.Gear.SERVO);
         ultra = new AnalogInput(Constants.Autonomous.ULTRA);
         autoLeft = new AnalogInput(Constants.Autonomous.AUTO_LEFT);
         autoRight = new AnalogInput(Constants.Autonomous.AUTO_RIGHT);

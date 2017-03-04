@@ -13,13 +13,15 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class AutonomousCommand extends Command {
 	private CANTalon leftMotorOne, leftMotorTwo, rightMotorOne, rightMotorTwo;
 	private CANTalon conveyorMotor, agitatorMotor, leftShooterMotor, rightShooterMotor;
-	private DoubleSolenoid releaseSol, receiveSol;
+	private DoubleSolenoid releaseSol, receiveSol, pickUpSol;
+	private Servo receiveServo;
 	private AnalogInput ultra;
 	private AnalogInput autoLeft, autoRight;
 	private DigitalInput stateReadOne, stateReadTwo;
@@ -48,7 +50,8 @@ public class AutonomousCommand extends Command {
     	stateReadOne = RobotMap.stateReadOne;
     	stateReadTwo = RobotMap.stateReadTwo;
     	releaseSol = RobotMap.gearReleaseFlap;
-    	receiveSol = RobotMap.gearReceiveFlap;
+    	receiveServo = RobotMap.receiveServo;
+    	pickUpSol = RobotMap.pickUpSol;
     	ultra = RobotMap.ultra;
     	autoLeft = RobotMap.autoLeft;
     	autoRight = RobotMap.autoRight;
@@ -63,7 +66,7 @@ public class AutonomousCommand extends Command {
     		{Constants.Autonomous.ROTATE_COMMAND, nav.getYaw() - 33},
     		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
     		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.WAIT_COMMAND, 0.3},
+    		{Constants.Autonomous.WAIT_COMMAND, 0.5},
     		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
     		{Constants.Autonomous.WAIT_COMMAND, 0.2},
     		{Constants.Autonomous.VISION_COMMAND, Constants.Autonomous.NULL_VALUE},
@@ -76,7 +79,7 @@ public class AutonomousCommand extends Command {
     	};
     	posTwoCommands = new double[][]{
     		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.WAIT_COMMAND, 0.35},
+    		{Constants.Autonomous.WAIT_COMMAND, 0.3},
     		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
     		{Constants.Autonomous.WAIT_COMMAND, 0.3},
     		{Constants.Autonomous.VISION_COMMAND, Constants.Autonomous.NULL_VALUE},
@@ -86,9 +89,12 @@ public class AutonomousCommand extends Command {
     		{Constants.Autonomous.WAIT_COMMAND, 0.35},
     		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
     		{Constants.Autonomous.CLOSE_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.ROTATE_COMMAND, nav.getYaw() + 70},
+    		{Constants.Autonomous.ROTATE_COMMAND, nav.getYaw() + 75},
+    		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
+    		{Constants.Autonomous.RAISE_FLAP_COMMAND, Constants.Autonomous.NULL_VALUE},
     		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.WAIT_COMMAND, 0.8},
+    		{Constants.Autonomous.WAIT_COMMAND, 0.08},
+    		{Constants.Autonomous.VISION_COMMAND, Constants.Autonomous.NULL_VALUE},
     		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE}
     	};
     	posThreeCommands = new double[][]{
@@ -105,14 +111,18 @@ public class AutonomousCommand extends Command {
     		{Constants.Autonomous.OPENL_COMMAND, Constants.Autonomous.NULL_VALUE},
     		{Constants.Autonomous.WAIT_COMMAND, 0.25},
     		{Constants.Autonomous.DRIVE_BACK_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.WAIT_COMMAND, 0.35},
-    		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.CLOSE_COMMAND, Constants.Autonomous.NULL_VALUE}
+    		{Constants.Autonomous.WAIT_COMMAND, 0.5},
+    		{Constants.Autonomous.CLOSE_COMMAND, Constants.Autonomous.NULL_VALUE},
+    		{Constants.Autonomous.ROTATE_COMMAND, nav.getYaw()},
+    		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.NULL_VALUE},
+    		{Constants.Autonomous.WAIT_COMMAND, 0.5},
+    		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE}
     	};
+    	receiveServo.set(0.8);
+    	pickUpSol.set(Value.kReverse);
     }
 
     protected void execute() {
-    	position = 1;
     	double[] command = new double[]{};	
     	switch (position) {
     	case 0:
@@ -219,7 +229,6 @@ public class AutonomousCommand extends Command {
     }
     
     protected void driveWithVision() {
-    	System.out.println(getInputs()[0] + "\t" + getInputs()[1]);
    		leftMotorOne.set(getInputs()[0] ? Constants.Autonomous.VISION_SPEED_HIGH : Constants.Autonomous.VISION_SPEED_LOW);
    		leftMotorTwo.set(getInputs()[0] ? Constants.Autonomous.VISION_SPEED_HIGH : Constants.Autonomous.VISION_SPEED_LOW);
    		rightMotorOne.set(getInputs()[1] ? Constants.Autonomous.VISION_SPEED_HIGH*-1 : Constants.Autonomous.VISION_SPEED_LOW*-1);
@@ -228,8 +237,9 @@ public class AutonomousCommand extends Command {
    			start = System.currentTimeMillis();
    		}
    		else {
-   			if (System.currentTimeMillis() - start > 2400) {
+   			if (System.currentTimeMillis() - start > 2250) {
    				incState();
+   				start = 0;
    			}
    		}
     }
@@ -287,6 +297,11 @@ public class AutonomousCommand extends Command {
     	rightMotorTwo.set(spd*-1);
     }
     
+    protected void raiseFlap() {
+    	receiveServo.set(1);
+    	incState();
+    }
+    
     protected void pauseFor(double value) {
     	Timer.delay(value);
     	incState();
@@ -335,6 +350,9 @@ public class AutonomousCommand extends Command {
     		break;
     	case Constants.Autonomous.CLOSEL_COMMAND:
     		openRelease();
+    		break;
+    	case Constants.Autonomous.RAISE_FLAP_COMMAND:
+    		raiseFlap();
     		break;
     	}
     }

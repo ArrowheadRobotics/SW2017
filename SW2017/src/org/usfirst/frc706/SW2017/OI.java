@@ -1,12 +1,14 @@
 package org.usfirst.frc706.SW2017;
 
 import org.usfirst.frc706.SW2017.commands.Climb;
+import org.usfirst.frc706.SW2017.commands.PickUp;
 import org.usfirst.frc706.SW2017.commands.Release;
 import org.usfirst.frc706.SW2017.commands.ReverseClimb;
 import org.usfirst.frc706.SW2017.commands.ReverseConveyor;
 import org.usfirst.frc706.SW2017.commands.RunIntake;
 import org.usfirst.frc706.SW2017.commands.Shift;
 import org.usfirst.frc706.SW2017.commands.ShootBalls;
+import org.usfirst.frc706.SW2017.commands.Squeeze;
 import org.usfirst.frc706.SW2017.commands.StraightDrive;
 import org.usfirst.frc706.SW2017.commands.ToggleReceive;
 
@@ -46,6 +48,8 @@ public class OI {
         y.whenPressed(new ToggleReceive());
         start.whenPressed(new Climb());
         back.whenPressed(new ReverseClimb());
+        lb.whenPressed(new PickUp());
+        rb.whenPressed(new Squeeze());
     }
 
     public Joystick getLeftJoy() {

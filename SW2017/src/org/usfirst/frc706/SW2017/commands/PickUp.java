@@ -4,34 +4,28 @@ import org.usfirst.frc706.SW2017.Robot;
 import org.usfirst.frc706.SW2017.RobotMap;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Release extends Command {
-	private DoubleSolenoid releaseSol;
-	private DoubleSolenoid pickUpSol;
+public class PickUp extends Command {
+	private DoubleSolenoid pickUpSol = RobotMap.pickUpSol;
 	
-    public Release() {
+    public PickUp() {
     }
 
     protected void initialize() {
-    	pickUpSol = RobotMap.pickUpSol;
-    	releaseSol = RobotMap.gearReleaseFlap;
+    	pickUpSol.set(Value.kReverse);
     }
 
-    protected void execute() {
-    	pickUpSol.set(Value.kReverse);
-    	Timer.delay(0.3);
-    	releaseSol.set(Value.kForward);
-    }
+    protected void execute() {}
+    		
     
     protected boolean isFinished() {
-        return !(Robot.oi.x.get());
+        return !(Robot.oi.lb.get());
     }
 
     protected void end() {
-    	releaseSol.set(Value.kReverse);
     	pickUpSol.set(Value.kForward);
     }
 
