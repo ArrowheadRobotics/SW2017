@@ -2,27 +2,20 @@ package org.usfirst.frc706.SW2017.commands;
 
 import org.usfirst.frc706.SW2017.RobotMap;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ToggleReceive extends Command {
-	private Servo receiveServo;
-	
-    public ToggleReceive() {
+public class FlapAngleInc extends Command {
+	double inc;
+    public FlapAngleInc(double i) {
+    	inc= i;
     }
 
     protected void initialize() {
-    	receiveServo = RobotMap.receiveServo;
+    	
     }
 
     protected void execute() {
-    	if(receiveServo.get() < 0.5) {
-    		receiveServo.set(1);
-    	}
-    	else {
-    		receiveServo.set(0.31);
-    	}
+    	RobotMap.receiveServo.set(Math.max(0.31, Math.min(1, RobotMap.receiveServo.get() + inc)));
     }
     
     protected boolean isFinished() {
@@ -30,6 +23,7 @@ public class ToggleReceive extends Command {
     }
 
     protected void end() {
+    	System.out.println("Servo Pos " + RobotMap.receiveServo.get());
     }
 
     protected void interrupted() {

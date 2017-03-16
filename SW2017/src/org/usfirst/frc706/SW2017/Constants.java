@@ -36,15 +36,15 @@ public class Constants {
 		public static final double OPTIMAL_SPEED_LEFT = 0.75;
 		public static final double OPTIMAL_SPEED_RIGHT = 0.75;
 		//PID
-		public static final double SHOOTER_LEFT_P = 0.01;
+		public static final double SHOOTER_LEFT_P = 0.1;
 		public static final double SHOOTER_LEFT_I = 0.0;
-		public static final double SHOOTER_LEFT_D = 0.0;
+		public static final double SHOOTER_LEFT_D = 0.2;
 		public static final double SHOOTER_RIGHT_P = 0.01;
 		public static final double SHOOTER_RIGHT_I = 0.0;
 		public static final double SHOOTER_RIGHT_D = 0.0;
-		public static final int OPTIMAL_POSITION = 60;
+		public static final int    OPTIMAL_POSITION = 60;
 		public static final double CLOSE_SHOOT_SPEED = 0.75;
-		public static final double SHOT_DELAY = 0.4;
+		public static final double SHOT_DELAY = 0.8;
 	}
 	
 	public class Intake {
@@ -74,6 +74,9 @@ public class Constants {
 		//Joystick Buttons
 		public static final int TRIGGER = 1;
 		public static final int BUTT_TWO = 2;
+		public static final int BUTT_THREE = 3;
+		public static final int BUTT_FOUR = 4;
+		public static final int BUTT_FIVE = 5;
 		
 		//Xbox Buttons
 		public static final int A = 1;
@@ -135,7 +138,7 @@ public class Constants {
 		public static final double DIST_M_VALUE = 0.050942;
 		public static final double DIST_B_VALUE = 2.57894;
 		public static final double VISION_SPEED_HIGH = 0.4;
-		public static final double VISION_SPEED_LOW = 0.2;
+		public static final double VISION_SPEED_LOW = 0.15;
 		public static final double ROTATE_SPEED = 0.65;
 	}
 }

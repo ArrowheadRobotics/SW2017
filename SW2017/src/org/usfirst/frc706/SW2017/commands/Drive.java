@@ -17,10 +17,6 @@ public class Drive extends Command {
     protected void execute() {
     	if (!Robot.auton) {
     		Robot.chassis.move(Robot.oi.getRightJoy().getY(), Robot.oi.getLeftJoy().getY());
-    		double r = Math.abs(Robot.oi.getRightJoy().getY());
-    		double l = Math.abs(Robot.oi.getLeftJoy().getY());
-    		Robot.oi.getXbox().setRumble(RumbleType.kLeftRumble, (r+l)*0.5);
-    		Robot.oi.getXbox().setRumble(RumbleType.kRightRumble, (r+l)*0.5);
     	}
     }
     

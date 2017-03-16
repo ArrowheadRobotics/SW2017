@@ -1,6 +1,7 @@
 package org.usfirst.frc706.SW2017;
 
 import org.usfirst.frc706.SW2017.commands.Climb;
+import org.usfirst.frc706.SW2017.commands.FlapAngleInc;
 import org.usfirst.frc706.SW2017.commands.PickUp;
 import org.usfirst.frc706.SW2017.commands.Release;
 import org.usfirst.frc706.SW2017.commands.ReverseClimb;
@@ -11,6 +12,7 @@ import org.usfirst.frc706.SW2017.commands.ShootBalls;
 import org.usfirst.frc706.SW2017.commands.Squeeze;
 import org.usfirst.frc706.SW2017.commands.StraightDrive;
 import org.usfirst.frc706.SW2017.commands.ToggleReceive;
+import org.usfirst.frc706.SW2017.commands.VisionPlace;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -18,7 +20,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
     private Joystick leftJoy, rightJoy, xbox;
     public JoystickButton a, b, x, y, rb, lb, start, back;
-    public JoystickButton rightTrigger, leftTrigger, leftButtTwo, rightButtTwo;
+    public JoystickButton rightTrigger, leftTrigger, leftButtThree, leftButtTwo, rightButtTwo, rightButtFour, rightButtFive;
 
     public OI() {
         xbox = new Joystick(Constants.OI.XBOX);
@@ -35,10 +37,14 @@ public class OI {
         back = new JoystickButton(xbox, Constants.OI.BACK);
         
         rightButtTwo = new JoystickButton(rightJoy, Constants.OI.BUTT_TWO);
+        rightButtFive = new JoystickButton(rightJoy, Constants.OI.BUTT_FIVE);
+        rightButtFour = new JoystickButton(rightJoy, Constants.OI.BUTT_FOUR);
         leftButtTwo = new JoystickButton(leftJoy, Constants.OI.BUTT_TWO);
+        leftButtThree = new JoystickButton(leftJoy, Constants.OI.BUTT_THREE);
         rightTrigger = new JoystickButton(rightJoy, Constants.OI.TRIGGER);
         leftTrigger = new JoystickButton(leftJoy, Constants.OI.TRIGGER);
 
+        leftButtThree.whenPressed(new VisionPlace());
         rightTrigger.whenPressed(new ShootBalls());
         leftTrigger.whenPressed(new Shift());
         a.whenPressed(new RunIntake());
@@ -50,6 +56,8 @@ public class OI {
         back.whenPressed(new ReverseClimb());
         lb.whenPressed(new PickUp());
         rb.whenPressed(new Squeeze());
+        rightButtFive.whileHeld(new FlapAngleInc(0.01));
+        rightButtFour.whileHeld(new FlapAngleInc(-0.01));
     }
 
     public Joystick getLeftJoy() {

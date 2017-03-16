@@ -31,17 +31,18 @@ public class ShootBalls extends Command {
     	rightShooterMotor.enable();
     	leftShooterMotor.changeControlMode(TalonControlMode.Speed);
     	rightShooterMotor.changeControlMode(TalonControlMode.Speed);
-    	leftShooterMotor.set(getSpeed()[0]*-2500);
-    	rightShooterMotor.set(getSpeed()[1]*2500);
+    	leftShooterMotor.set(-1000/*getSpeed()[0]*-2500*/);
+    	rightShooterMotor.set(1590/*getSpeed()[1]*2500*/);
     	Timer.delay(Constants.Shooter.SHOT_DELAY);
     }
 
     protected void execute() {
     	agitatorMotor.set(Constants.Shooter.AGITATOR_SPEED);
     	conveyorMotor.set(Constants.Shooter.CONVEYOR_SPEED);
-    	leftShooterMotor.set(-1590/*getSpeed()[0]*-2500*/);
+    	leftShooterMotor.set(-1000/*getSpeed()[0]*-2500*/);
+    	System.out.println("Left Enc: " + leftShooterMotor.getEncVelocity());
     	System.out.println("Right Enc: " + rightShooterMotor.getEncVelocity());
-    	rightShooterMotor.set(990/*getSpeed()[1]*2500*/);
+    	rightShooterMotor.set(1590/*getSpeed()[1]*2500*/);
     	System.out.println("Left: " + getSpeed()[0] + "  " + "Right: " + getSpeed()[1]);
     }
     

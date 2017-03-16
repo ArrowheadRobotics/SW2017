@@ -40,7 +40,7 @@ public class Chassis extends Subsystem {
     	leftSpeed = Math.abs(leftSpeed) > Constants.OI.DEAD_ZONE ? leftSpeed : 0;
     	rightSpeed = Math.abs(rightSpeed) > Constants.OI.DEAD_ZONE ? rightSpeed : 0;
     	if (leftSpeed > 0 || rightSpeed > 0) {
-    		intake.set(Constants.Intake.INTAKE_SPEED);
+    		//intake.set(Constants.Intake.INTAKE_SPEED);
     	}
     	else {
     		if (!(Robot.oi.a.get())) {

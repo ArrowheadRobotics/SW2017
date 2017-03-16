@@ -31,6 +31,8 @@ public class Climb extends Command {
     protected void end() {
     	climbMotorOne.set(0);
     	climbMotorTwo.set(0);
+    	climbMotorOne.enableBrakeMode(true);
+    	climbMotorTwo.enableBrakeMode(true);
     }
 
     protected void interrupted() {
