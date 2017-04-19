@@ -6,6 +6,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.Servo;
@@ -26,7 +27,8 @@ public class RobotMap {
     public static AnalogInput autoLeft, autoRight;
     public static DigitalInput stateReadOne, stateReadTwo;
     public static AHRS nav;
-
+    public static DigitalOutput leds, timeLight;
+    
     public static void init() {
         chassisLeftDriveOne = new CANTalon(Constants.Chassis.LEFT_ONE); 
         chassisLeftDriveTwo = new CANTalon(Constants.Chassis.LEFT_TWO);
@@ -49,6 +51,10 @@ public class RobotMap {
         autoRight = new AnalogInput(Constants.Autonomous.AUTO_RIGHT);
         stateReadOne = new DigitalInput(Constants.Autonomous.STATE_SELECTOR_MSB);
         stateReadTwo = new DigitalInput(Constants.Autonomous.STATE_SELECTOR_LSB);
+        
+        leds = new DigitalOutput(4);
+        timeLight = new DigitalOutput(5);
+        
         nav = new AHRS(Port.kMXP);
     }
 }

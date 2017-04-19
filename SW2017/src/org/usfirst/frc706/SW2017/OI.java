@@ -43,7 +43,7 @@ public class OI {
         leftButtThree = new JoystickButton(leftJoy, Constants.OI.BUTT_THREE);
         rightTrigger = new JoystickButton(rightJoy, Constants.OI.TRIGGER);
         leftTrigger = new JoystickButton(leftJoy, Constants.OI.TRIGGER);
-
+        
         leftButtThree.whenPressed(new VisionPlace());
         rightTrigger.whenPressed(new ShootBalls());
         leftTrigger.whenPressed(new Shift());
@@ -56,8 +56,8 @@ public class OI {
         back.whenPressed(new ReverseClimb());
         lb.whenPressed(new PickUp());
         rb.whenPressed(new Squeeze());
-        rightButtFive.whileHeld(new FlapAngleInc(0.01));
-        rightButtFour.whileHeld(new FlapAngleInc(-0.01));
+        rightButtFive.whileHeld(new FlapAngleInc(-0.01));
+        rightButtFour.whileHeld(new FlapAngleInc(0.01));
     }
 
     public Joystick getLeftJoy() {

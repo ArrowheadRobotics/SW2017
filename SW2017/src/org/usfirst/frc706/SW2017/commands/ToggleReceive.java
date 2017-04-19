@@ -18,10 +18,10 @@ public class ToggleReceive extends Command {
 
     protected void execute() {
     	if(receiveServo.get() < 0.5) {
-    		receiveServo.set(1);
+    		receiveServo.set(0.8);
     	}
     	else {
-    		receiveServo.set(0.31);
+    		receiveServo.set(0);
     	}
     }
     

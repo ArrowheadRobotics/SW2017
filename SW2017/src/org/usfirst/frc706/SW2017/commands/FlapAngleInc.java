@@ -15,7 +15,7 @@ public class FlapAngleInc extends Command {
     }
 
     protected void execute() {
-    	RobotMap.receiveServo.set(Math.max(0.31, Math.min(1, RobotMap.receiveServo.get() + inc)));
+    	RobotMap.receiveServo.set(Math.max(0, Math.min(0.8, RobotMap.receiveServo.get() + inc)));
     }
     
     protected boolean isFinished() {
@@ -23,7 +23,6 @@ public class FlapAngleInc extends Command {
     }
 
     protected void end() {
-    	System.out.println("Servo Pos " + RobotMap.receiveServo.get());
     }
 
     protected void interrupted() {

@@ -30,11 +30,12 @@ public class VisionPlace extends Command {
 
     protected void initialize() {
     	Robot.auton = true;
-    	receiveServo.set(0.8);
+    	receiveServo.set(0.3);
     	Timer.delay(0.5);
     }
 
     protected void execute() {
+    	System.out.println(getInputs()[0] + "\t" + getInputs()[1]);
    		leftMotorOne.set(getInputs()[0] ? 0.5 : 0.25);
    		leftMotorTwo.set(getInputs()[0] ? 0.5 : 0.25);
    		rightMotorOne.set(getInputs()[1] ? 0.5*-1 : 0.25*-1);

@@ -31,7 +31,7 @@ public class Constants {
 		public static final int SHOOTER_LEFT = 10;
 		public static final int SHOOTER_RIGHT = 1;
 		//Speeds
-		public static final double AGITATOR_SPEED = 1.0;
+		public static final double AGITATOR_SPEED = -1.0;
 		public static final double CONVEYOR_SPEED = -1.0;
 		public static final double OPTIMAL_SPEED_LEFT = 0.75;
 		public static final double OPTIMAL_SPEED_RIGHT = 0.75;
@@ -119,7 +119,7 @@ public class Constants {
 		public static final int AUTO_LEFT = 2;
 		public static final int AUTO_RIGHT = 3;
 		//Speeds
-		public static final double DRIVE_SPEED = 1.0;
+		public static final double DRIVE_SPEED = 0.75;
 		public static final double SPEED_MULTIPLIER = 0.001;
 		// position values
 		public static final double POS_ONE_DIST_ONE = 0;

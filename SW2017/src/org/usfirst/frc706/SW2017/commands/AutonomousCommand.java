@@ -32,7 +32,7 @@ public class AutonomousCommand extends Command {
 	private int position;
 	private long start = 0;
 	private double ang = 0;
-	private double[][] posOneCommands, posTwoCommands, posThreeCommands;
+	private double[][] posOneCommands, posTwoCommands, posThreeCommands, straightDriveCommands;
 
     public AutonomousCommand() {
     	state = 0;
@@ -58,16 +58,13 @@ public class AutonomousCommand extends Command {
     	nav = RobotMap.nav;
     	nav.zeroYaw();
     	alliance = DriverStation.getInstance().getAlliance();
-    	position = getPosition();
-    	mult = (alliance == DriverStation.Alliance.Red) ? 1 : -1;
+    	mult = (alliance == DriverStation.Alliance.Blue) ? 1 : -1;
     	posOneCommands = new double[][]{
     		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.WAIT_COMMAND, 0.6},
+    		{Constants.Autonomous.WAIT_COMMAND,0.85},
     		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.ROTATE_COMMAND, nav.getYaw() - 33},
+    		{Constants.Autonomous.ROTATE_COMMAND, nav.getYaw() + 45*mult},
     		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.WAIT_COMMAND, 0.5},
     		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
     		{Constants.Autonomous.WAIT_COMMAND, 0.2},
     		{Constants.Autonomous.VISION_COMMAND, Constants.Autonomous.NULL_VALUE},
@@ -78,42 +75,28 @@ public class AutonomousCommand extends Command {
     		{Constants.Autonomous.WAIT_COMMAND, 0.325},
     		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
     		{Constants.Autonomous.CLOSE_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.ROTATE_COMMAND, nav.getYaw() + 110},
-    		{Constants.Autonomous.VISION_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.SHOOT_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.WAIT_COMMAND, 5},
     		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE}
     	};
     	posTwoCommands = new double[][]{
     		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.WAIT_COMMAND, 0.45},
+    		{Constants.Autonomous.WAIT_COMMAND, 0.50},
     		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
     		{Constants.Autonomous.WAIT_COMMAND, 0.3},
     		{Constants.Autonomous.VISION_COMMAND, Constants.Autonomous.NULL_VALUE},
     		{Constants.Autonomous.OPENL_COMMAND, Constants.Autonomous.NULL_VALUE},
     		{Constants.Autonomous.WAIT_COMMAND, 0.25},
     		{Constants.Autonomous.DRIVE_BACK_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.WAIT_COMMAND, 0.35},
+    		{Constants.Autonomous.WAIT_COMMAND, 0.75},
     		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.CLOSE_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.ROTATE_COMMAND, nav.getYaw() + 80},
-    		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.RAISE_FLAP_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.VISION_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.SHOOT_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.WAIT_COMMAND, 5},
-    		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE}
     	};
     	posThreeCommands = new double[][]{
     		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.WAIT_COMMAND, 0.7},
+    		{Constants.Autonomous.WAIT_COMMAND, 0.85},
     		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.ROTATE_COMMAND, nav.getYaw() + 33},
+    		{Constants.Autonomous.ROTATE_COMMAND, nav.getYaw() - 45*mult},
     		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
     		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.WAIT_COMMAND, 0.3},
+    		{Constants.Autonomous.WAIT_COMMAND, 0.1},
     		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE},
     		{Constants.Autonomous.WAIT_COMMAND, 0.2},
     		{Constants.Autonomous.VISION_COMMAND, Constants.Autonomous.NULL_VALUE},
@@ -122,9 +105,11 @@ public class AutonomousCommand extends Command {
     		{Constants.Autonomous.DRIVE_BACK_COMMAND, Constants.Autonomous.NULL_VALUE},
     		{Constants.Autonomous.WAIT_COMMAND, 0.5},
     		{Constants.Autonomous.CLOSE_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.ROTATE_COMMAND, nav.getYaw()},
+    		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE}
+    	};
+    	straightDriveCommands = new double[][] {
     		{Constants.Autonomous.DRIVE_COMMAND, Constants.Autonomous.NULL_VALUE},
-    		{Constants.Autonomous.WAIT_COMMAND, 0.5},
+    		{Constants.Autonomous.WAIT_COMMAND, 2},
     		{Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE}
     	};
     	receiveServo.set(0.8);
@@ -132,7 +117,8 @@ public class AutonomousCommand extends Command {
     }
 
     protected void execute() {
-    	double[] command = new double[]{};	
+    	position = 2;
+    	double[] command = new double[]{};
     	switch (position) {
     	case 0:
         	command = posOneCommands[Math.min(state, posOneCommands.length-1)];
@@ -147,7 +133,7 @@ public class AutonomousCommand extends Command {
    			doCommand((int) command[0], command[1]);
    			break;
    		case 3:
-   			command = new double[] {Constants.Autonomous.ESTOP_COMMAND, Constants.Autonomous.NULL_VALUE};
+   			command = straightDriveCommands[Math.min(state, straightDriveCommands.length-1)];
    			doCommand((int) command[0], command[1]);
    			break;
    		}
@@ -227,10 +213,10 @@ public class AutonomousCommand extends Command {
     
     protected void rotateTo(double deg) {
     	double err = deg - nav.getYaw();
-    	leftMotorOne.set(err*0.1);
-    	leftMotorTwo.set(err*0.1);
-    	rightMotorOne.set(err*0.1);
-    	rightMotorTwo.set(err*0.1);
+    	leftMotorOne.set(err*0.02);
+    	leftMotorTwo.set(err*0.02);
+    	rightMotorOne.set(err*0.02);
+    	rightMotorTwo.set(err*0.02);
     	if (Math.abs(err) < 10) {
     		incState();
     	}
@@ -245,7 +231,7 @@ public class AutonomousCommand extends Command {
    			start = System.currentTimeMillis();
    		}
    		else {
-   			if (System.currentTimeMillis() - start > 2250) {
+   			if (System.currentTimeMillis() - start > 2600) {
    				incState();
    				start = 0;
    			}

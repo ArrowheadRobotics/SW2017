@@ -3,6 +3,7 @@ package org.usfirst.frc706.SW2017;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -44,13 +45,18 @@ public class Robot extends IterativeRobot {
     public void disabledPeriodic() {}
 
     public void autonomousInit() {
+    	RobotMap.leds.set(false);
     	auton = true;
+    	RobotMap.nav.zeroYaw();
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
     public void autonomousPeriodic() {
     	auton = true;
     	Scheduler.getInstance().run();
+    	
+    	RobotMap.leds.set(false);
+    	
     }
 
     public void teleopInit() {
@@ -61,7 +67,16 @@ public class Robot extends IterativeRobot {
 
     public void teleopPeriodic() {
     	auton = false;
+    	
+    	if((DriverStation.getInstance().getMatchTime() < 30) && !Robot.auton) {
+    		RobotMap.timeLight.set(true);
+    	}
+    	else {
+    		RobotMap.leds.set(true);
+    	}
     	Scheduler.getInstance().run();
+    	
+    	
     }
 
     public void testPeriodic() {}

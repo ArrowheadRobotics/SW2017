@@ -20,12 +20,12 @@ public class Climb extends Command {
     }
 
     protected void execute() {
-    	climbMotorOne.set(Constants.Chassis.CLIMB_SPEED);
-    	climbMotorTwo.set(Constants.Chassis.CLIMB_SPEED);
+    	climbMotorOne.set(-Constants.Chassis.CLIMB_SPEED);
+    	climbMotorTwo.set(-Constants.Chassis.CLIMB_SPEED);
     }
     
     protected boolean isFinished() {
-        return !(Robot.oi.start.get()) || (Math.max(climbMotorOne.getOutputCurrent(), climbMotorTwo.getOutputCurrent()) > Constants.Chassis.WINCH_CURRENT_MAX);
+        return !(Robot.oi.start.get());
     }
 
     protected void end() {
